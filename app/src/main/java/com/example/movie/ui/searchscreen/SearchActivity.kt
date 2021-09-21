@@ -1,7 +1,8 @@
-package com.example.movie
+package com.example.movie.ui.searchscreen
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.movie.R
 
 class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

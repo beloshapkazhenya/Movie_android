@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Movie">
         <activity
+            android:name=".ui.moviescreen.MovieActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.searchresultscreen.SearchResultActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.favoritesscreen.FavoritesActivity"
+            android:exported="true" />
+        <activity
             android:name=".SplashScreen"
             android:exported="true"
             android:theme="@style/SplashTheme">
@@ -20,7 +29,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SearchActivity"
+            android:name=".ui.searchscreen.SearchActivity"
             android:exported="true" />
     </application>
 

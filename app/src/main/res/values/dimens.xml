@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="padding_main">20dp</dimen>
-    <dimen name="margin_start">8dp</dimen>
+    <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="movie_card_margin">20dp</dimen>
+    <dimen name="text_size">32sp</dimen>
+    <dimen name="border_padding">2dp</dimen>
+    <dimen name="text_margin_start">4dp</dimen>
 </resources>

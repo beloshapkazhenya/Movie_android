@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vLnLtMovieCard"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginHorizontal="@dimen/movie_card_margin"
+    android:background="@drawable/movie_card_border"
+    android:orientation="vertical"
+    android:padding="@dimen/border_padding"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        android:id="@+id/vImgVwMovieCardPoster"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/movie_poster_description"
+        android:src="@drawable/test_poster" />
+
+    <TextView
+        android:id="@+id/vTvMovieCardTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="@string/tools_movie_title"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_size" />
+
+</LinearLayout>
