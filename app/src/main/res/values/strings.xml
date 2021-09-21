@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Movie</string>
+    <string name="search_icon_description">Search icon</string>
+    <string name="edit_text_hint">Movie title</string>
+</resources>
