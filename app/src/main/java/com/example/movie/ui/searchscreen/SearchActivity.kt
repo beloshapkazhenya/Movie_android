@@ -4,11 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.movie.R
-import com.example.movie.model.response.Search
-import com.example.movie.model.response.SearchResponse
+import com.example.movie.model.response.searchbytitle.Search
+import com.example.movie.model.response.searchbytitle.SearchResponse
 import com.example.movie.repository.Database
 import com.example.movie.service.DatabaseServices
 import com.example.movie.ui.searchresultscreen.SearchResultActivity
@@ -53,7 +52,7 @@ class SearchActivity : AppCompatActivity() {
             ?.getMoviesByTitle(API_KEY, getSearchValue())
             ?.enqueue(object : Callback<SearchResponse> {
                 override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
-                    Toast.makeText(this@SearchActivity, "sasdasd", Toast.LENGTH_SHORT).show()
+                    t.printStackTrace()
                 }
 
                 override fun onResponse(

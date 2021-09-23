@@ -1,4 +1,4 @@
-package com.example.movie.model.response
+package com.example.movie.model.response.searchbytitle
 
 import android.os.Parcel
 import android.os.Parcelable

@@ -6,11 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movie.R
-import com.example.movie.model.response.Search
+import com.example.movie.model.response.searchbytitle.Search
+
 
 class SearchResultAdapter(
     private val context: Context,
-    private val searchResult: ArrayList<Search>
+    private val searchResult: ArrayList<Search>,
+    private val onMovieCardClick: (imdbID:String)-> Unit
 ) :
     RecyclerView.Adapter<SearchResultViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchResultViewHolder {
@@ -25,6 +27,9 @@ class SearchResultAdapter(
         val searchResultItem = searchResult[position]
         Glide.with(context).load(searchResultItem.Poster).into(holder.poster)
         holder.movieTitle.text = searchResultItem.Title
+        holder.movieCard.setOnClickListener {
+            onMovieCardClick(searchResultItem.imdbID.toString())
+        }
     }
 
     override fun getItemCount(): Int {

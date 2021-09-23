@@ -166,6 +166,28 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/movie_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:text="@string/actors" />
+
+        <TextView
+            android:id="@+id/vTvMovieActors"
+            style="@style/movie_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="horizontal"
+            tools:text="Mark Hamill, Harrison Ford, Carrie Fisher" />
+
+    </LinearLayout>
+
     <TextView
         android:id="@+id/vTvMoviePlot"
         style="@style/movie_text"
@@ -176,5 +198,12 @@
         android:padding="@dimen/margin_8dp"
         android:scrollbars="vertical"
         tools:text="@string/tool_movie_plot" />
+
+    <Button
+        android:id="@+id/btnAddToFavorite"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/add_to_favorite" />
 
 </LinearLayout>

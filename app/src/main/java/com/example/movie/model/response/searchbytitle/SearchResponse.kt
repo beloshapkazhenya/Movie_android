@@ -1,4 +1,4 @@
-package com.example.movie.model.response
+package com.example.movie.model.response.searchbytitle
 
 data class SearchResponse(
     val Response: String,
