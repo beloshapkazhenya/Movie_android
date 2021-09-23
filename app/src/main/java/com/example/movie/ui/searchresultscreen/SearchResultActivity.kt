@@ -22,7 +22,7 @@ class SearchResultActivity : AppCompatActivity() {
         const val SEARCH_RESULT = "search_result"
         const val SEARCH_TITLE = "search_title"
         private const val API_KEY: String = "ea6e1810"
-
+        const val PLOT_TYPE: String = "full"
     }
 
     var searchTitle: TextView? = null
@@ -74,7 +74,7 @@ class SearchResultActivity : AppCompatActivity() {
     }
 
     fun getMovieDetails(imdbID: String) {
-        databaseServices?.getMovieById(API_KEY, imdbID)?.enqueue(object : Callback<MovieDetails> {
+        databaseServices?.getMovieById(API_KEY, imdbID, PLOT_TYPE)?.enqueue(object : Callback<MovieDetails> {
             override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
                 val movieDetailsLocal = MovieDetailsLocal(
                     actors = response.body()?.Actors.toString(),

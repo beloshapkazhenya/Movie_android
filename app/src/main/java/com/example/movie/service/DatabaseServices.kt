@@ -16,6 +16,7 @@ interface DatabaseServices {
     @GET(".")
     fun getMovieById(
         @Query("apikey") apiKey: String,
-        @Query("i") imdbID: String
+        @Query("i") imdbID: String,
+        @Query("plot") plotType:String
     ):Call<MovieDetails>
 }
