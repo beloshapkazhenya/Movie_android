@@ -1,4 +1,4 @@
-package com.example.movie.ui.searchresultscreen.searchresultadapter
+package com.example.movie.ui.favoritesscreen.favoritesadapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,49 +6,46 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.movie.R
-import com.example.movie.model.response.searchbytitle.Search
+import com.example.movie.model.local.MovieDetailsLocal
 
-
-class SearchResultAdapter(
+class FavoritesAdapter(
     private val context: Context,
-    private val searchResult: ArrayList<Search>,
+    private val favorites: ArrayList<MovieDetailsLocal>,
     private val onMovieCardClick: (imdbID: String) -> Unit
-) :
-    RecyclerView.Adapter<SearchResultViewHolder>() {
+) : RecyclerView.Adapter<FavoritesViewHolder>() {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): SearchResultViewHolder {
+    ): FavoritesViewHolder {
+
         val itemView =
             LayoutInflater
                 .from(parent.context)
                 .inflate(R.layout.movie_card, parent, false)
 
-        return SearchResultViewHolder(itemView)
-
+        return FavoritesViewHolder(itemView)
     }
 
     override fun onBindViewHolder(
-        holder: SearchResultViewHolder,
+        holder: FavoritesViewHolder,
         position: Int
     ) {
-        val searchResultItem = searchResult[position]
+        val favoritesItem = favorites[position]
 
         Glide
             .with(context)
-            .load(searchResultItem.Poster)
+            .load(favoritesItem.poster)
             .into(holder.poster)
 
-        holder.movieTitle.text = searchResultItem.Title
+        holder.movieTitle.text = favoritesItem.title
 
         holder.movieCard.setOnClickListener {
-            onMovieCardClick(searchResultItem.imdbID.toString())
+            onMovieCardClick(favoritesItem.id.toString())
         }
     }
 
     override fun getItemCount(): Int {
-        return searchResult.size
+        return favorites.size
     }
-
 }

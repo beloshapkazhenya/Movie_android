@@ -36,6 +36,7 @@
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/movie_card" />
+
     </LinearLayout>
 
     <Button

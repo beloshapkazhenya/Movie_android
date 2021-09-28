@@ -20,6 +20,7 @@
     <string name="tools_country">United States, United Kingdom</string>
     <string name="tool_movie_plot">Luke Skywalker, Han Solo, Princess Leia and Chewbacca face attack by the Imperial forces and its AT-AT walkers on the ice planet Hoth. While Han and Leia escape in the Millennium Falcon, Luke travels to Dagobah in search of Yoda. Only with the Jedi Master\'s help will Luke survive when the Dark Side of the Force beckons him into the ultimate duel with Darth Vader.</string>
     <string name="add_to_favorite">Add to favorite</string>
+    <string name="add_to_favorite_unavailable">Already in favorite</string>
     <string name="actors">Actors:</string>
     <string name="tools_actors">Mark Hamill, Harrison Ford, Carrie Fisher</string>
     <string name="favorite">Favorite</string>

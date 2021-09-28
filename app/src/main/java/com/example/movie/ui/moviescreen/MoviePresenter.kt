@@ -8,16 +8,29 @@ import moxy.MvpPresenter
 class MoviePresenter : MvpPresenter<MovieView>() {
 
     fun updateMovieDetails(movieDetails: MovieDetailsLocal) {
-        viewState.updateTitle(movieDetails.title.toString())
-        viewState.updateMoviePoster(movieDetails.poster.toString())
-        viewState.updateReleased(movieDetails.released.toString())
-        viewState.updateRuntime(movieDetails.runtime.toString())
-        viewState.updateGenre(movieDetails.genre.toString())
-        viewState.updateDirector(movieDetails.director.toString())
-        viewState.updateWriter(movieDetails.writer.toString())
-        viewState.updateCountry(movieDetails.country.toString())
-        viewState.updateActors(movieDetails.actors.toString())
-        viewState.updatePlot(movieDetails.plot.toString())
+
+        viewState.run {
+            updateTitle(movieDetails.title.toString())
+            updateMoviePoster(movieDetails.poster.toString())
+            updateReleased(movieDetails.released.toString())
+            updateRuntime(movieDetails.runtime.toString())
+            updateGenre(movieDetails.genre.toString())
+            updateDirector(movieDetails.director.toString())
+            updateWriter(movieDetails.writer.toString())
+            updateCountry(movieDetails.country.toString())
+            updateActors(movieDetails.actors.toString())
+            updatePlot(movieDetails.plot.toString())
+        }
+
+    }
+
+    fun checkMovieInFavoriteList(isInFavorite: Boolean) {
+
+        when (isInFavorite) {
+            true -> viewState.makeAddToFavoriteButtonAvailable()
+            false -> viewState.makeAddToFavoriteButtonUnavailable()
+        }
+
     }
 
 }

@@ -7,7 +7,11 @@
         <entry key="..\:/projects/Movie/app/src/main/res/drawable-v24/ic_launcher.xml" value="0.2635416666666667" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/background_gradient.xml" value="0.2635416666666667" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/background_splash_screen.xml" value="0.2635416666666667" />
+        <entry key="..\:/projects/Movie/app/src/main/res/drawable/button.xml" value="0.2" />
+        <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_add_to_favorite.xml" value="0.21623931623931625" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_main.xml" value="0.21623931623931625" />
+        <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_pressed.xml" value="0.2" />
+        <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_unavailable.xml" value="0.2" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_unpressed.xml" value="0.21623931623931625" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/ic_icon_search.xml" value="0.14166666666666666" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/ic_launcher.xml" value="0.1" />

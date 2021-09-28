@@ -25,16 +25,22 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        findAllView()
+
+        findViewById<ImageButton>(R.id.imgBtnSearch)
+            .setOnClickListener {
+                searchPresenter.searchMovie(getSearchValue())
+            }
+
+        findViewById<Button>(R.id.btnSearchFavorite)
+            .setOnClickListener {
+                openFavorite()
+            }
+    }
+
+    private fun findAllView() {
         progressBar = findViewById(R.id.vFrLtProgressBar)
         searchValueField = findViewById(R.id.edTxtSearchField)
-
-        findViewById<ImageButton>(R.id.imgBtnSearch).setOnClickListener {
-            searchPresenter.searchMovie(getSearchValue())
-        }
-
-        findViewById<Button>(R.id.btnSearchFavorite).setOnClickListener {
-            openFavorite()
-        }
     }
 
     private fun getSearchValue(): String {
@@ -60,8 +66,7 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
 
     override fun openFavorite() {
         val intent = Intent(this, FavoritesActivity::class.java)
+
         startActivity(intent)
     }
-
-
 }

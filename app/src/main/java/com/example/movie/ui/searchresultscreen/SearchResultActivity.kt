@@ -35,6 +35,7 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
         setContentView(R.layout.activity_search_result)
 
         findAllView()
+
         searchResultPresenter.updateSearchResult()
 
         findViewById<Button>(R.id.btnSearchResultFavorite).setOnClickListener {
@@ -45,6 +46,7 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
 
     override fun openFavorite() {
         val intent = Intent(this, FavoritesActivity::class.java)
+
         startActivity(intent)
     }
 
@@ -54,7 +56,9 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
     }
 
     private fun getSearchTitle(): String? {
+
         return intent.getStringExtra(SEARCH_TITLE)
+
     }
 
     override fun updateSearchTitle() {
@@ -62,16 +66,20 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
     }
 
     private fun getSearchResult(): ArrayList<Search>? {
+
         return intent.getParcelableArrayListExtra(SEARCH_RESULT)
+
     }
 
     @SuppressLint("NotifyDataSetChanged")
     override fun updateSearchResult() {
+
         searchResultAdapter = getSearchResult()?.let {
             SearchResultAdapter(this, it) { imdbID ->
                 onMovieCardClick(imdbID)
             }
         }
+
         searchResultAdapter?.notifyDataSetChanged()
         recyclerResultView?.adapter = searchResultAdapter
     }
