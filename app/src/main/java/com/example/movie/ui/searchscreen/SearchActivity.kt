@@ -2,72 +2,72 @@ package com.example.movie.ui.searchscreen
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import com.example.movie.R
 import com.example.movie.model.response.searchbytitle.Search
-import com.example.movie.model.response.searchbytitle.SearchResponse
 import com.example.movie.repository.Database
+import com.example.movie.repository.movierepository.MovieRepository
 import com.example.movie.service.DatabaseServices
+import com.example.movie.ui.favoritesscreen.FavoritesActivity
 import com.example.movie.ui.searchresultscreen.SearchResultActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 class SearchActivity : AppCompatActivity() {
 
+
     private var searchValueField: EditText? = null
     private var databaseServices: DatabaseServices? = null
-
-    companion object {
-        private const val API_KEY: String = "ea6e1810"
-    }
-
+    private lateinit var movieRepository: MovieRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_search)
 
         searchValueField = findViewById(R.id.edTxtSearchField)
         databaseServices = Database.databaseServices
 
-        findViewById<ImageButton>(R.id.imgBtnSearch).setOnClickListener {
-            searchMovie()
+        movieRepository = MovieRepository()
 
+        findViewById<ImageButton>(R.id.imgBtnSearch).setOnClickListener {
+            searchMovie(getSearchValue())
         }
 
+        findViewById<Button>(R.id.btnSearchFavorite).setOnClickListener {
+            openFavorite()
+        }
     }
 
     private fun getSearchValue(): String {
         return searchValueField?.text.toString()
     }
 
-    private fun searchMovie() {
-        getMovieList()
-    }
-
-    private fun getMovieList() {
-        databaseServices
-            ?.getMoviesByTitle(API_KEY, getSearchValue())
-            ?.enqueue(object : Callback<SearchResponse> {
-                override fun onFailure(call: Call<SearchResponse>, t: Throwable) {
-                    t.printStackTrace()
+    private fun searchMovie(searchValue: String) {
+        movieRepository.getMovieListByTitle(searchValue)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<List<Search>> {
+                override fun onError(e: Throwable) {
+                    e.printStackTrace()
                 }
 
-                override fun onResponse(
-                    call: Call<SearchResponse>,
-                    response: Response<SearchResponse>
-                ) {
-                    if (response.body()?.Response == "True") {
-                        openSearchResultActivity(
-                            response.body()!!.Search as ArrayList<Search>,
-                            getSearchValue()
-                        )
-                    }
+                override fun onSubscribe(d: Disposable) {
+                }
+
+                override fun onComplete() {
+                }
+
+                override fun onNext(response: List<Search>) {
+                    openSearchResultActivity(response as ArrayList<Search>, searchValue)
                 }
             })
     }
+
 
     private fun openSearchResultActivity(searchList: ArrayList<Search>, searchValue: String) {
         val intent = Intent(this, SearchResultActivity::class.java)
@@ -78,5 +78,8 @@ class SearchActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-
+    private fun openFavorite() {
+        val intent = Intent(this, FavoritesActivity::class.java)
+        startActivity(intent)
+    }
 }

@@ -2,20 +2,21 @@ package com.example.movie.model.local
 
 import android.os.Parcel
 import android.os.Parcelable
+import io.realm.RealmObject
 
-data class MovieDetailsLocal(
-    var actors: String?,
-    var country: String?,
-    var director: String?,
-    var genre: String?,
-    var plot: String?,
-    var poster: String?,
-    var released: String?,
-    var runtime: String?,
-    var title: String?,
-    var writer: String?,
-    var id: String?
-) : Parcelable {
+open class MovieDetailsLocal(
+    var actors: String? = "",
+    var country: String? = "",
+    var director: String? = "",
+    var genre: String? = "",
+    var plot: String? = "",
+    var poster: String? = "",
+    var released: String? = "",
+    var runtime: String? = "",
+    var title: String? = "",
+    var writer: String? = "",
+    var id: String? = ""
+) : RealmObject(), Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readString(),

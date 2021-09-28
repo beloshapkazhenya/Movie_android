@@ -172,6 +172,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_8dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -195,7 +196,6 @@
                 style="@style/movie_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_8dp"
                 android:padding="@dimen/margin_8dp"
                 tools:text="@string/tool_movie_plot" />
 
@@ -203,11 +203,33 @@
 
     </ScrollView>
 
-    <Button
-        android:id="@+id/btnAddToFavorite"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/add_to_favorite" />
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnAddToFavorite"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/add_to_favorite"
+            style="@style/button"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/design_default_color_background"/>
+
+        <Button
+            android:id="@+id/btnMovieFavorite"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            style="@style/button"
+            android:text="@string/favorite"         />
+    </LinearLayout>
 
 </LinearLayout>

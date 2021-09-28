@@ -1,11 +1,14 @@
 package com.example.movie.ui.moviescreen
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.movie.R
 import com.example.movie.model.local.MovieDetailsLocal
+import com.example.movie.ui.favoritesscreen.FavoritesActivity
 
 class MovieActivity : AppCompatActivity() {
 
@@ -19,6 +22,10 @@ class MovieActivity : AppCompatActivity() {
         setContentView(R.layout.activity_movie)
         movieDetails = getMovieDetails()
         movieDetails?.let { updateMovieDetails(it) }
+
+        findViewById<Button>(R.id.btnMovieFavorite).setOnClickListener {
+            openFavorite()
+        }
     }
 
     private fun getMovieDetails(): MovieDetailsLocal? {
@@ -76,5 +83,10 @@ class MovieActivity : AppCompatActivity() {
 
     private fun updateTitle(title:String) {
         findViewById<TextView>(R.id.vTvMovieTitle).text = title
+    }
+
+    private fun openFavorite(){
+        val intent = Intent(this, FavoritesActivity::class.java)
+        startActivity(intent)
     }
 }

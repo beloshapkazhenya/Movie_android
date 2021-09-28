@@ -2,7 +2,7 @@ package com.example.movie.service
 
 import com.example.movie.model.response.searchbyid.MovieDetails
 import com.example.movie.model.response.searchbytitle.SearchResponse
-import retrofit2.Call
+import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -11,12 +11,12 @@ interface DatabaseServices {
     fun getMoviesByTitle(
         @Query("apikey") apiKey: String,
         @Query("s") searchValue: String
-    ): Call<SearchResponse>
+    ): Observable<SearchResponse>
 
     @GET(".")
     fun getMovieById(
         @Query("apikey") apiKey: String,
         @Query("i") imdbID: String,
         @Query("plot") plotType:String
-    ):Call<MovieDetails>
+    ):Observable<MovieDetails>
 }

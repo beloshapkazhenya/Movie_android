@@ -2,44 +2,53 @@ package com.example.movie.ui.searchresultscreen
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movie.R
 import com.example.movie.model.local.MovieDetailsLocal
-import com.example.movie.model.response.searchbyid.MovieDetails
 import com.example.movie.model.response.searchbytitle.Search
-import com.example.movie.repository.Database
-import com.example.movie.service.DatabaseServices
+import com.example.movie.repository.movierepository.MovieRepository
+import com.example.movie.ui.favoritesscreen.FavoritesActivity
 import com.example.movie.ui.moviescreen.MovieActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.example.movie.ui.searchresultscreen.searchresultadapter.SearchResultAdapter
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import java.util.*
 
 class SearchResultActivity : AppCompatActivity() {
     companion object {
         const val SEARCH_RESULT = "search_result"
         const val SEARCH_TITLE = "search_title"
-        private const val API_KEY: String = "ea6e1810"
-        const val PLOT_TYPE: String = "full"
     }
 
     var searchTitle: TextView? = null
     var searchResultAdapter: SearchResultAdapter? = null
     var recyclerResultView: RecyclerView? = null
-    var databaseServices: DatabaseServices? = null
+    private lateinit var movieRepository: MovieRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_result)
 
-        databaseServices = Database.databaseServices
+        movieRepository = MovieRepository()
 
         findAllView()
 
+        findViewById<Button>(R.id.btnSearchResultFavorite).setOnClickListener {
+            openFavorite()
+        }
+
         updateSearchTitle()
         updateSearchResult()
+    }
+
+    private fun openFavorite() {
+        val intent = Intent(this, FavoritesActivity::class.java)
+        startActivity(intent)
     }
 
     private fun findAllView() {
@@ -74,30 +83,27 @@ class SearchResultActivity : AppCompatActivity() {
     }
 
     fun getMovieDetails(imdbID: String) {
-        databaseServices?.getMovieById(API_KEY, imdbID, PLOT_TYPE)?.enqueue(object : Callback<MovieDetails> {
-            override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
-                val movieDetailsLocal = MovieDetailsLocal(
-                    actors = response.body()?.Actors.toString(),
-                    response.body()?.Country.toString(),
-                    response.body()?.Director.toString(),
-                    response.body()?.Genre.toString(),
-                    response.body()?.Plot.toString(),
-                    response.body()?.Poster.toString(),
-                    response.body()?.Released.toString(),
-                    response.body()?.Runtime.toString(),
-                    response.body()?.Title.toString(),
-                    response.body()?.Writer.toString(),
-                    response.body()?.imdbID.toString()
-                )
-                openMovieActivity(movieDetailsLocal)
-            }
+        movieRepository.getMovieById(imdbID)!!
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(object : Observer<MovieDetailsLocal> {
+                override fun onSubscribe(d: Disposable) {
+                }
 
-            override fun onFailure(call: Call<MovieDetails>, t: Throwable) {
-                t.printStackTrace()
-            }
+                override fun onNext(t: MovieDetailsLocal) {
+                    openMovieActivity(t)
+                }
 
-        })
+                override fun onError(e: Throwable) {
+                    e.printStackTrace()
+                }
+
+                override fun onComplete() {
+                }
+
+            })
     }
+
 
     fun openMovieActivity(movieDetailsLocal: MovieDetailsLocal) {
         val intent = Intent(this, MovieActivity::class.java)

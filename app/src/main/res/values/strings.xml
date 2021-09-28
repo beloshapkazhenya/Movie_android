@@ -22,4 +22,5 @@
     <string name="add_to_favorite">Add to favorite</string>
     <string name="actors">Actors:</string>
     <string name="tools_actors">Mark Hamill, Harrison Ford, Carrie Fisher</string>
+    <string name="favorite">Favorite</string>
 </resources>

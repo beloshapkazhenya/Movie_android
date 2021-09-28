@@ -1,4 +1,4 @@
-package com.example.movie.ui.searchresultscreen
+package com.example.movie.ui.searchresultscreen.searchresultadapter
 
 import android.view.View
 import android.widget.ImageView

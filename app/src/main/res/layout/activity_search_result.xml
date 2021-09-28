@@ -5,30 +5,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="@dimen/padding_main"
     tools:context=".ui.favoritesscreen.FavoritesActivity">
 
-    <TextView
-        style="@style/title_text"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/search_results_title" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_main">
 
-    <TextView
-        android:id="@+id/vTvSearchResultTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_8dp"
-        android:gravity="center"
-        android:textSize="@dimen/text_size"
-        tools:text="Star Wars" />
+        <TextView
+            style="@style/title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/search_results_title" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/vRvSearchResultList"
+        <TextView
+            android:id="@+id/vTvSearchResultTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_8dp"
+            android:gravity="center"
+            android:textSize="@dimen/text_size"
+            tools:text="Star Wars" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/vRvSearchResultList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/movie_card" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSearchResultFavorite"
+        style="@style/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/movie_card" />
+        android:text="@string/favorite" />
 
 </LinearLayout>
