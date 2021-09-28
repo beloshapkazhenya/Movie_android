@@ -1,52 +1,49 @@
 package com.example.movie.ui.searchresultscreen
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movie.R
 import com.example.movie.model.local.MovieDetailsLocal
 import com.example.movie.model.response.searchbytitle.Search
-import com.example.movie.repository.movierepository.MovieRepository
 import com.example.movie.ui.favoritesscreen.FavoritesActivity
 import com.example.movie.ui.moviescreen.MovieActivity
 import com.example.movie.ui.searchresultscreen.searchresultadapter.SearchResultAdapter
-import io.reactivex.Observer
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.schedulers.Schedulers
+import moxy.MvpAppCompatActivity
+import moxy.presenter.InjectPresenter
 import java.util.*
 
-class SearchResultActivity : AppCompatActivity() {
+class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
+
     companion object {
         const val SEARCH_RESULT = "search_result"
         const val SEARCH_TITLE = "search_title"
     }
 
-    var searchTitle: TextView? = null
-    var searchResultAdapter: SearchResultAdapter? = null
-    var recyclerResultView: RecyclerView? = null
-    private lateinit var movieRepository: MovieRepository
+    @InjectPresenter
+    lateinit var searchResultPresenter: SearchResultPresenter
+
+    private var searchTitle: TextView? = null
+    private var searchResultAdapter: SearchResultAdapter? = null
+    private var recyclerResultView: RecyclerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_result)
 
-        movieRepository = MovieRepository()
-
         findAllView()
+        searchResultPresenter.updateSearchResult()
 
         findViewById<Button>(R.id.btnSearchResultFavorite).setOnClickListener {
             openFavorite()
         }
 
-        updateSearchTitle()
-        updateSearchResult()
     }
 
-    private fun openFavorite() {
+    override fun openFavorite() {
         val intent = Intent(this, FavoritesActivity::class.java)
         startActivity(intent)
     }
@@ -56,19 +53,20 @@ class SearchResultActivity : AppCompatActivity() {
         recyclerResultView = findViewById(R.id.vRvSearchResultList)
     }
 
-    fun getSearchTitle(): String? {
+    private fun getSearchTitle(): String? {
         return intent.getStringExtra(SEARCH_TITLE)
     }
 
-    fun updateSearchTitle() {
+    override fun updateSearchTitle() {
         searchTitle?.text = getSearchTitle()
     }
 
-    fun getSearchResult(): ArrayList<Search>? {
+    private fun getSearchResult(): ArrayList<Search>? {
         return intent.getParcelableArrayListExtra(SEARCH_RESULT)
     }
 
-    fun updateSearchResult() {
+    @SuppressLint("NotifyDataSetChanged")
+    override fun updateSearchResult() {
         searchResultAdapter = getSearchResult()?.let {
             SearchResultAdapter(this, it) { imdbID ->
                 onMovieCardClick(imdbID)
@@ -78,34 +76,11 @@ class SearchResultActivity : AppCompatActivity() {
         recyclerResultView?.adapter = searchResultAdapter
     }
 
-    fun onMovieCardClick(imdbID: String) {
-        getMovieDetails(imdbID)
+    override fun onMovieCardClick(imdbID: String) {
+        searchResultPresenter.getMovieDetails(imdbID)
     }
 
-    fun getMovieDetails(imdbID: String) {
-        movieRepository.getMovieById(imdbID)!!
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<MovieDetailsLocal> {
-                override fun onSubscribe(d: Disposable) {
-                }
-
-                override fun onNext(t: MovieDetailsLocal) {
-                    openMovieActivity(t)
-                }
-
-                override fun onError(e: Throwable) {
-                    e.printStackTrace()
-                }
-
-                override fun onComplete() {
-                }
-
-            })
-    }
-
-
-    fun openMovieActivity(movieDetailsLocal: MovieDetailsLocal) {
+    override fun openMovieActivity(movieDetailsLocal: MovieDetailsLocal) {
         val intent = Intent(this, MovieActivity::class.java)
 
         intent.putExtra(MovieActivity.MOVIE_DETAILS, movieDetailsLocal)
