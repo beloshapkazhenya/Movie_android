@@ -27,8 +27,8 @@ class MoviePresenter : MvpPresenter<MovieView>() {
     fun checkMovieInFavoriteList(isInFavorite: Boolean) {
 
         when (isInFavorite) {
-            true -> viewState.makeAddToFavoriteButtonAvailable()
-            false -> viewState.makeAddToFavoriteButtonUnavailable()
+            true -> viewState.actionMovieIsNotInFavoriteList()
+            false -> viewState.actionMovieIsInFavoriteList()
         }
 
     }

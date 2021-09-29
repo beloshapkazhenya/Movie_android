@@ -16,4 +16,8 @@
     <style name="button">
         <item name="android:background">@drawable/button</item>
     </style>
+
+    <style name="button_red">
+        <item name="android:background">@drawable/button_red</item>
+    </style>
 </resources>

@@ -10,7 +10,10 @@
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/button.xml" value="0.2" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_add_to_favorite.xml" value="0.21623931623931625" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_main.xml" value="0.21623931623931625" />
+        <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_main_red.xml" value="0.19722222222222222" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_pressed.xml" value="0.2" />
+        <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_pressed_red.xml" value="0.19722222222222222" />
+        <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_red.xml" value="0.19722222222222222" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_unavailable.xml" value="0.2" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_unpressed.xml" value="0.21623931623931625" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/ic_icon_search.xml" value="0.14166666666666666" />

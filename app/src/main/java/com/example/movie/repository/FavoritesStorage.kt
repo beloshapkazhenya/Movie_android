@@ -74,4 +74,14 @@ class FavoritesStorage(private val context: Context) {
             .isEmpty()
 
     }
+
+    fun deleteFromFavoriteList(id: String) {
+        realmInstance.executeTransaction {
+            realmInstance
+                .where(MovieDetailsLocal::class.java)
+                .equalTo(FIELD_NAME, id)
+                .findFirst()
+                ?.deleteFromRealm()
+        }
+    }
 }

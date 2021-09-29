@@ -18,6 +18,7 @@ interface MovieView : MvpView {
     fun updateTitle(title: String)
     fun openFavorite()
     fun addToFavorite()
-    fun makeAddToFavoriteButtonUnavailable()
-    fun makeAddToFavoriteButtonAvailable()
+    fun actionMovieIsInFavoriteList()
+    fun actionMovieIsNotInFavoriteList()
+    fun deleteFromFavorite()
 }

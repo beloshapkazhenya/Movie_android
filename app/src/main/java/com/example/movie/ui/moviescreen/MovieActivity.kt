@@ -46,10 +46,7 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
                 openFavorite()
             }
 
-        addToFavoriteButton
-            ?.setOnClickListener {
-                addToFavorite()
-            }
+
     }
 
     private fun checkMovieInFavoriteList() {
@@ -62,18 +59,19 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
 
     }
 
-    override fun makeAddToFavoriteButtonUnavailable() {
-        addToFavoriteButton?.apply {
-            isEnabled = false
-            text = getString(R.string.add_to_favorite_unavailable)
+    override fun actionMovieIsInFavoriteList() {
+        addToFavoriteButton?.text = getString(R.string.delete_from_favorite)
+        addToFavoriteButton?.setOnClickListener {
+            deleteFromFavorite()
         }
     }
 
-    override fun makeAddToFavoriteButtonAvailable() {
-        addToFavoriteButton?.apply {
-            isEnabled = true
-            text = getString(R.string.add_to_favorite)
-        }
+    override fun actionMovieIsNotInFavoriteList() {
+        addToFavoriteButton?.text = getString(R.string.add_to_favorite)
+        addToFavoriteButton
+            ?.setOnClickListener {
+                addToFavorite()
+            }
     }
 
     private fun getMovieDetails() {
@@ -140,7 +138,12 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
 
     override fun addToFavorite() {
         movieDetails?.let { favoritesStorage.saveMovieToFavorite(it) }
-        makeAddToFavoriteButtonUnavailable()
+        actionMovieIsInFavoriteList()
+    }
+
+    override fun deleteFromFavorite() {
+        favoritesStorage.deleteFromFavoriteList(movieDetails?.id.toString())
+        actionMovieIsNotInFavoriteList()
     }
 
 }
