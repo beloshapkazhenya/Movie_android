@@ -209,11 +209,13 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <Button
+        <TextView
+            android:textAllCaps="true"
             android:id="@+id/btnAddToFavorite"
-            style="@style/button"
+            android:background="@drawable/button"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/button_height"
+            android:textColor="@color/white"
             android:layout_weight="1"
             android:gravity="center"
             tools:text="@string/add_to_favorite" />

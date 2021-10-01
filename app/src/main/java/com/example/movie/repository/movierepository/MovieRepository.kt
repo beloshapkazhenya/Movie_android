@@ -12,11 +12,11 @@ class MovieRepository {
         const val PLOT_TYPE: String = "full"
     }
 
-    fun getMovieListByTitle(searchValue: String): Observable<List<Search>> {
+    fun getMovieListByTitle(searchValue: String): Observable<List<Search>>? {
 
         return databaseServices
-            ?.getMoviesByTitle(API_KEY, searchValue)!!
-            .map { searchResponse ->
+            ?.getMoviesByTitle(API_KEY, searchValue)
+            ?.map { searchResponse ->
                 searchResponse.Search.map { search ->
                     Search(
                         search.Poster,
@@ -29,11 +29,11 @@ class MovieRepository {
             }
     }
 
-    fun getMovieById(imdbID: String): Observable<MovieDetailsLocal>? {
+    fun getMovieById(imdbID: String): Observable<MovieDetailsLocal> {
 
         return databaseServices
-            ?.getMovieById(API_KEY, imdbID, PLOT_TYPE)!!
-            .map { movie ->
+            ?.getMovieById(API_KEY, imdbID, PLOT_TYPE)
+            ?.map { movie ->
                 MovieDetailsLocal(
                     movie.Actors,
                     movie.Country,
@@ -47,7 +47,8 @@ class MovieRepository {
                     movie.Writer,
                     movie.imdbID
                 )
-            }
+            } ?: Observable.fromCallable{MovieDetailsLocal()}
+
     }
 
 }

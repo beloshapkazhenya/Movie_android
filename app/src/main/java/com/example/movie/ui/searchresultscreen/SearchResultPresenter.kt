@@ -1,5 +1,6 @@
 package com.example.movie.ui.searchresultscreen
 
+import com.example.movie.App
 import com.example.movie.model.local.MovieDetailsLocal
 import com.example.movie.repository.movierepository.MovieRepository
 import io.reactivex.Observer
@@ -8,17 +9,18 @@ import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
+import org.kodein.di.instance
 
 @InjectViewState
-class SearchResultPresenter: MvpPresenter<SearchResultView>() {
+class SearchResultPresenter : MvpPresenter<SearchResultView>() {
 
-    private var movieRepository = MovieRepository()
+    private val movieRepository: MovieRepository by App.kodein.instance()
 
     fun getMovieDetails(imdbID: String) {
-        movieRepository.getMovieById(imdbID)!!
+        movieRepository.getMovieById(imdbID)
             .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : Observer<MovieDetailsLocal> {
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe(object : Observer<MovieDetailsLocal> {
                 override fun onSubscribe(d: Disposable) {
                 }
 
@@ -36,7 +38,7 @@ class SearchResultPresenter: MvpPresenter<SearchResultView>() {
             })
     }
 
-    fun updateSearchResult(){
+    fun updateSearchResult() {
         viewState.updateSearchTitle()
         viewState.updateSearchResult()
     }

@@ -44,18 +44,24 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
     }
 
     private fun getSearchValue(): String {
+
         return searchValueField?.text.toString()
     }
 
     override fun showLoader() {
-        progressBar?.visibility = FrameLayout.VISIBLE
+        progressBar
+            ?.visibility = FrameLayout.VISIBLE
     }
 
     override fun hideLoader() {
-        progressBar?.visibility = FrameLayout.INVISIBLE
+        progressBar
+            ?.visibility = FrameLayout.INVISIBLE
     }
 
-    override fun openSearchResultActivity(searchList: ArrayList<Search>, searchValue: String) {
+    override fun openSearchResultActivity(
+        searchList: ArrayList<Search>,
+        searchValue: String
+    ) {
         val intent = Intent(this, SearchResultActivity::class.java)
 
         intent.putExtra(SearchResultActivity.SEARCH_RESULT, searchList)

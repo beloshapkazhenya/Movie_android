@@ -48,4 +48,5 @@ class FavoritesAdapter(
     override fun getItemCount(): Int {
         return favorites.size
     }
+
 }

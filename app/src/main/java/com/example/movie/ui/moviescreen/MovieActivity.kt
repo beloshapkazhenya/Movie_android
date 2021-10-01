@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.movie.R
 import com.example.movie.model.local.MovieDetailsLocal
-import com.example.movie.repository.FavoritesStorage
 import com.example.movie.ui.favoritesscreen.FavoritesActivity
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
@@ -21,56 +21,54 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
     @InjectPresenter
     lateinit var moviePresenter: MoviePresenter
 
-    private lateinit var favoritesStorage: FavoritesStorage
-
     private var movieDetails: MovieDetailsLocal? = null
 
-    private var addToFavoriteButton: Button? = null
+    private var addToFavoriteButton: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
 
+        moviePresenter.initFavoritesStorage()
+
         addToFavoriteButton = findViewById(R.id.btnAddToFavorite)
         getMovieDetails()
 
-        favoritesStorage = FavoritesStorage(this)
-        favoritesStorage.setRealmConfiguration()
-
         movieDetails?.let { moviePresenter.updateMovieDetails(it) }
 
-        checkMovieInFavoriteList()
+        movieDetails?.let { moviePresenter.checkMovieInFavoriteList(it) }
 
         findViewById<Button>(R.id.btnMovieFavorite)
             .setOnClickListener {
                 openFavorite()
             }
-
-
-    }
-
-    private fun checkMovieInFavoriteList() {
-        moviePresenter.checkMovieInFavoriteList(
-            favoritesStorage
-                .checkMovieInFavoriteList(
-                    movieDetails?.id.toString()
-                )
-        )
-
     }
 
     override fun actionMovieIsInFavoriteList() {
         addToFavoriteButton?.text = getString(R.string.delete_from_favorite)
+        addToFavoriteButton?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                this,
+                R.drawable.button_red
+            )
+        )
+
         addToFavoriteButton?.setOnClickListener {
-            deleteFromFavorite()
+            moviePresenter.deleteFromFavorite(movieDetails?.id)
         }
     }
 
     override fun actionMovieIsNotInFavoriteList() {
         addToFavoriteButton?.text = getString(R.string.add_to_favorite)
+        addToFavoriteButton?.setBackgroundDrawable(
+            ContextCompat.getDrawable(
+                this,
+                R.drawable.button
+            )
+        )
         addToFavoriteButton
             ?.setOnClickListener {
-                addToFavorite()
+                movieDetails?.let { it1 -> moviePresenter.addToFavorite(it1) }
             }
     }
 
@@ -134,16 +132,6 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
         val intent = Intent(this, FavoritesActivity::class.java)
 
         startActivity(intent)
-    }
-
-    override fun addToFavorite() {
-        movieDetails?.let { favoritesStorage.saveMovieToFavorite(it) }
-        actionMovieIsInFavoriteList()
-    }
-
-    override fun deleteFromFavorite() {
-        favoritesStorage.deleteFromFavoriteList(movieDetails?.id.toString())
-        actionMovieIsNotInFavoriteList()
     }
 
 }
