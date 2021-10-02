@@ -2,7 +2,9 @@ package com.example.movie
 
 import android.app.Application
 import com.example.movie.repository.FavoritesStorage
-import com.example.movie.repository.movierepository.MovieRepository
+import com.example.movie.repository.MovieRepository
+import io.realm.Realm
+import io.realm.RealmConfiguration
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.singleton
@@ -20,17 +22,26 @@ class App : Application() {
     }
 
     private val settingModule = DI.Module("settings_module") {
-        bind<FavoritesStorage>() with singleton {
-            FavoritesStorage(
-                applicationContext
-            )
-        }
+
+        bind<FavoritesStorage>() with singleton { FavoritesStorage() }
 
         bind<MovieRepository>() with singleton { MovieRepository() }
     }
 
+    private fun setRealmConfiguration() {
+        Realm.init(applicationContext)
+        val realmConfig = RealmConfiguration
+            .Builder()
+            .allowWritesOnUiThread(true)
+            .allowQueriesOnUiThread(true)
+            .build()
+        Realm.setDefaultConfiguration(realmConfig)
+    }
+
     override fun onCreate() {
         super.onCreate()
+
+        setRealmConfiguration()
 
         if (::kodeinStored.isInitialized.not())
             kodeinStored = DI {

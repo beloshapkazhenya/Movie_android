@@ -29,9 +29,8 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie)
 
-        moviePresenter.initFavoritesStorage()
-
         addToFavoriteButton = findViewById(R.id.btnAddToFavorite)
+
         getMovieDetails()
 
         movieDetails?.let { moviePresenter.updateMovieDetails(it) }
@@ -68,7 +67,7 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
         )
         addToFavoriteButton
             ?.setOnClickListener {
-                movieDetails?.let { it1 -> moviePresenter.addToFavorite(it1) }
+                movieDetails?.let { movieDetailsLocal -> moviePresenter.addToFavorite(movieDetailsLocal) }
             }
     }
 
@@ -125,6 +124,8 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
         Glide
             .with(this)
             .load(poster)
+            .placeholder(R.drawable.movie_poster_placeholder)
+            .error(R.drawable.movie_poster_placeholder)
             .into(findViewById(R.id.vImgVwMoviePoster))
     }
 

@@ -26,7 +26,7 @@ class FavoritesAdapter(
 
         return FavoritesViewHolder(itemView)
     }
-
+//todo move to view holder
     override fun onBindViewHolder(
         holder: FavoritesViewHolder,
         position: Int
@@ -36,6 +36,8 @@ class FavoritesAdapter(
         Glide
             .with(context)
             .load(favoritesItem.poster)
+            .placeholder(R.drawable.movie_poster_placeholder)
+            .error(R.drawable.movie_poster_placeholder)
             .into(holder.poster)
 
         holder.movieTitle.text = favoritesItem.title

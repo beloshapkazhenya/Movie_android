@@ -9,5 +9,5 @@ import moxy.viewstate.strategy.StateStrategyType
 interface FavoritesView:MvpView {
     fun onMovieCardClick(id: String)
     fun openMovieActivity(movieDetailsLocal: MovieDetailsLocal)
-    fun updateFavorites(favoriteList: ArrayList<MovieDetailsLocal>)
+    fun updateFavorites(favoriteList: MutableList<MovieDetailsLocal>)
 }

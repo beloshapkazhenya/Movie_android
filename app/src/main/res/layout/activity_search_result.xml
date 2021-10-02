@@ -1,50 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.favoritesscreen.FavoritesActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.favoritesscreen.FavoritesActivity">
 
-        <TextView
-            style="@style/title_text"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/search_results_title" />
+
+            <TextView
+                android:id="@+id/vTvSearchResultTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_8dp"
+                android:gravity="center"
+                android:textSize="@dimen/text_size"
+                tools:text="Star Wars" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/vRvSearchResultList"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:overScrollMode="never"
+                android:splitMotionEvents="false"
+                tools:listitem="@layout/movie_card" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnSearchResultFavorite"
+            style="@style/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/search_results_title" />
-
-        <TextView
-            android:id="@+id/vTvSearchResultTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_8dp"
-            android:gravity="center"
-            android:textSize="@dimen/text_size"
-            tools:text="Star Wars" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/vRvSearchResultList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:overScrollMode="never"
-            android:splitMotionEvents="false"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/movie_card" />
+            android:text="@string/favorite" />
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnSearchResultFavorite"
-        style="@style/button"
+    <FrameLayout
+        android:id="@+id/vFrLtProgressBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/favorite" />
+        android:layout_height="match_parent"
+        android:background="@color/loader_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="invisible">
 
-</LinearLayout>
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+</FrameLayout>

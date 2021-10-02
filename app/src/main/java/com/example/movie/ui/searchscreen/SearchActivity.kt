@@ -4,10 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.FrameLayout
 import android.widget.ImageButton
 import com.example.movie.R
-import com.example.movie.model.response.searchbytitle.Search
 import com.example.movie.ui.favoritesscreen.FavoritesActivity
 import com.example.movie.ui.searchresultscreen.SearchResultActivity
 import moxy.MvpAppCompatActivity
@@ -19,13 +17,12 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
     lateinit var searchPresenter: SearchPresenter
 
     private var searchValueField: EditText? = null
-    private var progressBar: FrameLayout? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        findAllView()
+        searchValueField = findViewById(R.id.edTxtSearchField)
 
         findViewById<ImageButton>(R.id.imgBtnSearch)
             .setOnClickListener {
@@ -34,13 +31,8 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
 
         findViewById<Button>(R.id.btnSearchFavorite)
             .setOnClickListener {
-                openFavorite()
+                searchPresenter.openFavorite()
             }
-    }
-
-    private fun findAllView() {
-        progressBar = findViewById(R.id.vFrLtProgressBar)
-        searchValueField = findViewById(R.id.edTxtSearchField)
     }
 
     private fun getSearchValue(): String {
@@ -48,24 +40,10 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
         return searchValueField?.text.toString()
     }
 
-    override fun showLoader() {
-        progressBar
-            ?.visibility = FrameLayout.VISIBLE
-    }
-
-    override fun hideLoader() {
-        progressBar
-            ?.visibility = FrameLayout.INVISIBLE
-    }
-
-    override fun openSearchResultActivity(
-        searchList: ArrayList<Search>,
-        searchValue: String
-    ) {
+    override fun openSearchResultActivity(searchValue: String) {
         val intent = Intent(this, SearchResultActivity::class.java)
 
-        intent.putExtra(SearchResultActivity.SEARCH_RESULT, searchList)
-        intent.putExtra(SearchResultActivity.SEARCH_TITLE, searchValue)
+        intent.putExtra(SearchResultActivity.TEXT_FOR_SEARCH, searchValue)
 
         startActivity(intent)
     }
@@ -75,4 +53,5 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
 
         startActivity(intent)
     }
+
 }

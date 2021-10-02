@@ -1,10 +1,10 @@
-package com.example.movie.repository.movierepository
+package com.example.movie.service.api
 
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-object DatabaseClient {
+object OmdbClient {
     private var retrofit: Retrofit? = null
 
     fun getClient(baseUrl: String): Retrofit? {
@@ -18,6 +18,6 @@ object DatabaseClient {
                 .build()
         }
 
-        return retrofit!!
+        return retrofit
     }
 }

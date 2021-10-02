@@ -1,32 +1,39 @@
 package com.example.movie.ui.searchresultscreen
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.SystemClock
 import android.widget.Button
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movie.R
 import com.example.movie.model.local.MovieDetailsLocal
-import com.example.movie.model.response.searchbytitle.Search
+import com.example.movie.model.response.moviesearch.SearchItemResponse
 import com.example.movie.ui.favoritesscreen.FavoritesActivity
 import com.example.movie.ui.moviescreen.MovieActivity
 import com.example.movie.ui.searchresultscreen.searchresultadapter.SearchResultAdapter
 import moxy.MvpAppCompatActivity
 import moxy.presenter.InjectPresenter
-import java.util.*
 
 class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
 
     companion object {
-        const val SEARCH_RESULT = "search_result"
-        const val SEARCH_TITLE = "search_title"
+        const val TEXT_FOR_SEARCH = "TEXT_FOR_SEARCH"
+        const val MIN_CLICK_DELAY = 500
     }
 
     @InjectPresenter
     lateinit var searchResultPresenter: SearchResultPresenter
 
-    private var searchTitle: TextView? = null
+    private var progressBar: FrameLayout? = null
+
+    private var lastClickTime: Long = 0
+    private var isLoading: Boolean = false
+    private var recyclerViewLayoutManager: RecyclerView.LayoutManager? = null
+    private lateinit var searchTitle: String
+
+    private var searchTitleView: TextView? = null
     private var searchResultAdapter: SearchResultAdapter? = null
     private var recyclerResultView: RecyclerView? = null
 
@@ -35,12 +42,36 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
         setContentView(R.layout.activity_search_result)
 
         findAllView()
+        setSearchTitle()
 
-        searchResultPresenter.updateSearchResult()
+        findViewById<Button>(R.id.btnSearchResultFavorite)
+            .setOnClickListener {
+                openFavorite()
+            }
 
-        findViewById<Button>(R.id.btnSearchResultFavorite).setOnClickListener {
-            openFavorite()
-        }
+        initSearchResultRv()
+
+        searchResultPresenter.onCreate(
+            getTextForSearch(),
+            searchResultAdapter?.itemClickObservable
+        )
+
+    }
+
+    override fun updateSearchTitle(title: String) {
+        searchTitleView?.text = title
+    }
+
+    private fun getTextForSearch(): String? {
+
+        return intent.getStringExtra(TEXT_FOR_SEARCH)
+    }
+
+    private fun initSearchResultRv() {
+        searchResultAdapter = SearchResultAdapter(mutableListOf())
+        recyclerResultView?.adapter = searchResultAdapter
+
+        recyclerViewLayoutManager = recyclerResultView?.layoutManager
 
     }
 
@@ -51,41 +82,9 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
     }
 
     private fun findAllView() {
-        searchTitle = findViewById(R.id.vTvSearchResultTitle)
+        searchTitleView = findViewById(R.id.vTvSearchResultTitle)
         recyclerResultView = findViewById(R.id.vRvSearchResultList)
-    }
-
-    private fun getSearchTitle(): String? {
-
-        return intent.getStringExtra(SEARCH_TITLE)
-
-    }
-
-    override fun updateSearchTitle() {
-        searchTitle?.text = getSearchTitle()
-    }
-
-    private fun getSearchResult(): ArrayList<Search>? {
-
-        return intent.getParcelableArrayListExtra(SEARCH_RESULT)
-
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    override fun updateSearchResult() {
-
-        searchResultAdapter = getSearchResult()?.let {
-            SearchResultAdapter(this, it) { imdbID ->
-                onMovieCardClick(imdbID)
-            }
-        }
-
-        searchResultAdapter?.notifyDataSetChanged()
-        recyclerResultView?.adapter = searchResultAdapter
-    }
-
-    override fun onMovieCardClick(imdbID: String) {
-        searchResultPresenter.getMovieDetails(imdbID)
+        progressBar = findViewById(R.id.vFrLtProgressBar)
     }
 
     override fun openMovieActivity(movieDetailsLocal: MovieDetailsLocal) {
@@ -95,4 +94,86 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
 
         startActivity(intent)
     }
+
+    override fun updateSearchResultList(items: List<SearchItemResponse>) {
+        searchResultAdapter?.setItems(items)
+
+        isLoading = false
+    }
+
+    override fun showLoader() {
+        progressBar
+            ?.visibility = FrameLayout.VISIBLE
+    }
+
+    override fun hideLoader() {
+        progressBar
+            ?.visibility = FrameLayout.INVISIBLE
+    }
+
+    private fun setSearchTitle() {
+        searchTitle = getTextForSearch().toString()
+    }
+
+
+    private fun fastClickCheck(): Boolean {
+        return (SystemClock.elapsedRealtime() - lastClickTime < MIN_CLICK_DELAY)
+    }
+
+
+//    @SuppressLint("NotifyDataSetChanged")
+//    override fun updateSearchResult() {
+//
+//        searchResultAdapter = searchResultList?.let {
+//            SearchResultAdapter(it) { imdbID ->
+//                if (fastClickCheck()) {
+//                    return@SearchResultAdapter
+//                }
+//                lastClickTime = SystemClock.elapsedRealtime()
+//                onMovieCardClicked(imdbID)
+//            }
+//        }
+//
+//        searchResultAdapter?.registerAdapterDataObserver(object :
+//            RecyclerView.AdapterDataObserver() {
+//            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
+//                (recyclerViewLayoutManager as LinearLayoutManager).scrollToPositionWithOffset(
+//                    positionStart,
+//                    0
+//                )
+//            }
+//        })
+//
+//        searchResultAdapter?.notifyDataSetChanged()
+//
+//        recyclerResultView?.adapter = searchResultAdapter
+//
+//        recyclerViewLayoutManager = recyclerResultView?.layoutManager
+//
+////        recyclerResultView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+////            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+////                super.onScrolled(recyclerView, dx, dy)
+////
+////                if (!isLoading) {
+////
+////                    if (
+////                        (recyclerViewLayoutManager as LinearLayoutManager)
+////                            .findLastCompletelyVisibleItemPosition() ==
+////                        (searchResultList?.size)?.minus(1)
+////                    ) {
+////                        searchResultPresenter.getNextSearchPage(searchTitle, nextSearchPage)
+////
+////                        nextSearchPage++
+////
+////                        isLoading = true
+////                    }
+////
+////                }
+////
+////            }
+////        })
+//
+//    }
+
+
 }

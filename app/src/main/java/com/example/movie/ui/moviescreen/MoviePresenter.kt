@@ -12,10 +12,6 @@ class MoviePresenter : MvpPresenter<MovieView>() {
 
     private val favoritesStorage: FavoritesStorage by App.kodein.instance()
 
-    fun initFavoritesStorage() {
-        favoritesStorage.setRealmConfiguration()
-    }
-
     fun updateMovieDetails(movieDetails: MovieDetailsLocal) {
 
         viewState.run {

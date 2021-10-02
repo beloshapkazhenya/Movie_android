@@ -12,10 +12,6 @@ class FavoritesPresenter : MvpPresenter<FavoritesView>() {
 
     private val favoritesStorage: FavoritesStorage by App.kodein.instance()
 
-    fun initFavoritesStorage() {
-        favoritesStorage.setRealmConfiguration()
-    }
-
     fun openMovieDetails(id: String) {
         getMovieDetails(id)?.let { viewState.openMovieActivity(it) }
     }
@@ -29,7 +25,7 @@ class FavoritesPresenter : MvpPresenter<FavoritesView>() {
         return favoritesStorage.getMovie(id)
     }
 
-    private fun getFavoriteList(): ArrayList<MovieDetailsLocal> {
+    private fun getFavoriteList(): MutableList<MovieDetailsLocal> {
         return favoritesStorage.getFavoritesList()
     }
 
