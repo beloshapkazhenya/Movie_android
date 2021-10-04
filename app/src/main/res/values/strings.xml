@@ -24,4 +24,5 @@
     <string name="actors">Actors:</string>
     <string name="tools_actors">Mark Hamill, Harrison Ford, Carrie Fisher</string>
     <string name="favorite">Favorite</string>
+    <string name="text_error">Something went wrong</string>
 </resources>

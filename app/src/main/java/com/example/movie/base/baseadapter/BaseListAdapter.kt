@@ -1,9 +1,10 @@
 package com.example.movie.base.baseadapter
 
 import androidx.recyclerview.widget.RecyclerView
+import com.example.movie.model.local.MovieDetailsLocal
 
 abstract class BaseListAdapter<T>(
-    proposedItems: List<T> = ArrayList(),
+    proposedItems: MutableList<T> = ArrayList(),
     private val colourAlternateItems: Boolean = false
 ) : RecyclerView.Adapter<BaseViewHolder<in T>>() {
     protected val items: ArrayList<T> = ArrayList(proposedItems)

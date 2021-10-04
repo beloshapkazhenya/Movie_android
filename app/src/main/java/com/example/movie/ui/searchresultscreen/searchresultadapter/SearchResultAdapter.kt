@@ -20,6 +20,7 @@ class SearchResultAdapter(
         parent: ViewGroup,
         viewType: Int
     ): SearchResultViewHolder {
+
         val itemView =
             LayoutInflater
                 .from(parent.context)

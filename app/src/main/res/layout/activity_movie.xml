@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/movie_poster_description"
-                tools:src="@drawable/test_poster" />
+                tools:src="@drawable/movie_poster_placeholder" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -179,7 +179,6 @@
                     style="@style/movie_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/margin_8dp"
                     android:text="@string/actors" />
 
                 <TextView
@@ -210,14 +209,14 @@
         android:orientation="horizontal">
 
         <TextView
-            android:textAllCaps="true"
             android:id="@+id/btnAddToFavorite"
-            android:background="@drawable/button"
             android:layout_width="0dp"
             android:layout_height="@dimen/button_height"
-            android:textColor="@color/white"
             android:layout_weight="1"
+            android:background="@drawable/button"
             android:gravity="center"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
             tools:text="@string/add_to_favorite" />
 
         <View

@@ -5,7 +5,7 @@
     <dimen name="movie_card_margin">20dp</dimen>
     <dimen name="text_size">32sp</dimen>
     <dimen name="text_size_small">16sp</dimen>
-    <dimen name="border_padding">2dp</dimen>
+    <dimen name="border_padding">4dp</dimen>
     <dimen name="text_margin_start">4dp</dimen>
     <dimen name="button_height">48dp</dimen>
 </resources>

@@ -3,6 +3,10 @@ package com.example.movie.ui.favoritesscreen
 import com.example.movie.App
 import com.example.movie.model.local.MovieDetailsLocal
 import com.example.movie.repository.FavoritesStorage
+import io.reactivex.Observable
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
 import org.kodein.di.instance
@@ -12,21 +16,27 @@ class FavoritesPresenter : MvpPresenter<FavoritesView>() {
 
     private val favoritesStorage: FavoritesStorage by App.kodein.instance()
 
-    fun openMovieDetails(id: String) {
-        getMovieDetails(id)?.let { viewState.openMovieActivity(it) }
+    private fun openMovieDetails(movieDetails: MovieDetailsLocal) {
+        viewState.openMovieActivity(movieDetails)
     }
 
-    fun updateFavoritesActivity() {
-        viewState.updateFavorites(getFavoriteList())
-    }
-
-    private fun getMovieDetails(id: String): MovieDetailsLocal? {
-
-        return favoritesStorage.getMovie(id)
+    private fun updateFavoritesActivity(favoriteList: MutableList<MovieDetailsLocal>) {
+        viewState.updateFavoritesList(getFavoriteList())
     }
 
     private fun getFavoriteList(): MutableList<MovieDetailsLocal> {
         return favoritesStorage.getFavoritesList()
+    }
+
+    fun onCreate(itemClickObservable: Observable<MovieDetailsLocal>?) {
+        updateFavoritesActivity(getFavoriteList())
+
+        itemClickObservable
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribeOn(Schedulers.io())
+            ?.subscribe {
+                openMovieDetails(it)
+            }
     }
 
 }

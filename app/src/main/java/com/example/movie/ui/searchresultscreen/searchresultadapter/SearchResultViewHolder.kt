@@ -26,13 +26,17 @@ class SearchResultViewHolder(
     }
 
     private fun bindOnClickListener(model: SearchItemResponse) {
-        itemView.findViewById<LinearLayout>(R.id.vLnLtMovieCard).setOnClickListener {
-            itemClickSubject.onNext(model)
-        }
+        itemView
+            .findViewById<LinearLayout>(R.id.vLnLtMovieCard)
+            .setOnClickListener {
+                itemClickSubject.onNext(model)
+            }
     }
 
     private fun bindTitle(title: String?) {
-        itemView.findViewById<TextView>(R.id.vTvMovieCardTitle).text = title
+        itemView
+            .findViewById<TextView>(R.id.vTvMovieCardTitle)
+            .text = title
     }
 
     private fun bindPoster(poster: String) {

@@ -1,18 +1,19 @@
 package com.example.movie.ui.favoritesscreen.favoritesadapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.movie.R
+import com.example.movie.base.baseadapter.BaseListAdapter
 import com.example.movie.model.local.MovieDetailsLocal
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 
 class FavoritesAdapter(
-    private val context: Context,
-    private val favorites: ArrayList<MovieDetailsLocal>,
-    private val onMovieCardClick: (imdbID: String) -> Unit
-) : RecyclerView.Adapter<FavoritesViewHolder>() {
+    private val favoriteList: MutableList<MovieDetailsLocal>
+) : BaseListAdapter<MovieDetailsLocal>(favoriteList) {
+
+    private val itemClickSubject = PublishSubject.create<MovieDetailsLocal>()
+    val itemClickObservable: Observable<MovieDetailsLocal> = itemClickSubject
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -24,31 +25,7 @@ class FavoritesAdapter(
                 .from(parent.context)
                 .inflate(R.layout.movie_card, parent, false)
 
-        return FavoritesViewHolder(itemView)
-    }
-//todo move to view holder
-    override fun onBindViewHolder(
-        holder: FavoritesViewHolder,
-        position: Int
-    ) {
-        val favoritesItem = favorites[position]
-
-        Glide
-            .with(context)
-            .load(favoritesItem.poster)
-            .placeholder(R.drawable.movie_poster_placeholder)
-            .error(R.drawable.movie_poster_placeholder)
-            .into(holder.poster)
-
-        holder.movieTitle.text = favoritesItem.title
-
-        holder.movieCard.setOnClickListener {
-            onMovieCardClick(favoritesItem.id.toString())
-        }
-    }
-
-    override fun getItemCount(): Int {
-        return favorites.size
+        return FavoritesViewHolder(itemView, itemClickSubject)
     }
 
 }

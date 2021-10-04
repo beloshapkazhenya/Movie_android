@@ -14,20 +14,23 @@
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_pressed.xml" value="0.2" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_pressed_red.xml" value="0.19722222222222222" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_red.xml" value="0.19722222222222222" />
+        <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_search.xml" value="0.175" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_unavailable.xml" value="0.2" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/button_unpressed.xml" value="0.21623931623931625" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/camera_film.xml" value="0.1787037037037037" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/ic_icon_search.xml" value="0.14166666666666666" />
+        <entry key="..\:/projects/Movie/app/src/main/res/drawable/ic_icon_search_pressed.xml" value="0.175" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/ic_launcher.xml" value="0.1" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2635416666666667" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.2635416666666667" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/movie_card_border.xml" value="0.2635416666666667" />
         <entry key="..\:/projects/Movie/app/src/main/res/drawable/movie_poster_placeholder.xml" value="0.1787037037037037" />
-        <entry key="..\:/projects/Movie/app/src/main/res/layout/activity_favorites.xml" value="0.24739583333333334" />
+        <entry key="..\:/projects/Movie/app/src/main/res/drawable/separator_horizontal.xml" value="0.175" />
+        <entry key="..\:/projects/Movie/app/src/main/res/layout/activity_favorites.xml" value="0.176" />
         <entry key="..\:/projects/Movie/app/src/main/res/layout/activity_main.xml" value="0.24739583333333334" />
-        <entry key="..\:/projects/Movie/app/src/main/res/layout/activity_movie.xml" value="0.264" />
+        <entry key="..\:/projects/Movie/app/src/main/res/layout/activity_movie.xml" value="0.2" />
         <entry key="..\:/projects/Movie/app/src/main/res/layout/activity_search.xml" value="0.202991452991453" />
-        <entry key="..\:/projects/Movie/app/src/main/res/layout/activity_search_result.xml" value="0.24739583333333334" />
+        <entry key="..\:/projects/Movie/app/src/main/res/layout/activity_search_result.xml" value="0.152" />
         <entry key="..\:/projects/Movie/app/src/main/res/layout/movie_card.xml" value="0.2" />
         <entry key="..\:/projects/Movie/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2635416666666667" />
         <entry key="..\:/projects/Movie/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.2635416666666667" />

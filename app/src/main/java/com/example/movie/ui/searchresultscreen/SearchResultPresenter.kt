@@ -34,6 +34,7 @@ class SearchResultPresenter : MvpPresenter<SearchResultView>() {
 
                 override fun onError(t: Throwable) {
                     t.printStackTrace()
+                    viewState.showMessage()
                 }
 
                 override fun onComplete() {
@@ -53,6 +54,8 @@ class SearchResultPresenter : MvpPresenter<SearchResultView>() {
 
                 override fun onError(t: Throwable) {
                     t.printStackTrace()
+                    viewState.hideLoader()
+                    viewState.showMessage()
                 }
 
                 override fun onComplete() {
