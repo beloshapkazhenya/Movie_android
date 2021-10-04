@@ -2,12 +2,11 @@ package com.example.movie.ui.searchresultscreen
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.SystemClock
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movie.R
 import com.example.movie.model.local.MovieDetailsLocal
@@ -22,7 +21,6 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
 
     companion object {
         const val TEXT_FOR_SEARCH = "TEXT_FOR_SEARCH"
-        const val MIN_CLICK_DELAY = 500
     }
 
     @InjectPresenter
@@ -30,7 +28,6 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
 
     private var progressBar: FrameLayout? = null
 
-    private var lastClickTime: Long = 0
     private var isLoading: Boolean = false
     private var recyclerViewLayoutManager: RecyclerView.LayoutManager? = null
     private lateinit var searchTitle: String
@@ -75,6 +72,7 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
 
         recyclerViewLayoutManager = recyclerResultView?.layoutManager
 
+        addOnScrollListener()
     }
 
     override fun openFavorite() {
@@ -99,6 +97,12 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
 
     override fun updateSearchResultList(items: List<SearchItemResponse>) {
         searchResultAdapter?.setItems(items)
+
+        isLoading = false
+    }
+
+    override fun addNextSearchResultPage(items: List<SearchItemResponse>) {
+        items.map { searchResultAdapter?.addItem(it) }
 
         isLoading = false
     }
@@ -128,64 +132,30 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
     }
 
 
-    private fun fastClickCheck(): Boolean {
-        return (SystemClock.elapsedRealtime() - lastClickTime < MIN_CLICK_DELAY)
+    private fun addOnScrollListener() {
+
+        recyclerResultView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (!isLoading) {
+
+                    if (
+                        (recyclerViewLayoutManager as LinearLayoutManager)
+                            .findLastCompletelyVisibleItemPosition() ==
+                        searchResultAdapter?.itemCount?.minus(1)
+                    ) {
+                        searchResultPresenter.searchNextPage(searchTitle)
+
+                        isLoading = true
+                    }
+
+                }
+
+            }
+        })
+
     }
-
-
-//    @SuppressLint("NotifyDataSetChanged")
-//    override fun updateSearchResult() {
-//
-//        searchResultAdapter = searchResultList?.let {
-//            SearchResultAdapter(it) { imdbID ->
-//                if (fastClickCheck()) {
-//                    return@SearchResultAdapter
-//                }
-//                lastClickTime = SystemClock.elapsedRealtime()
-//                onMovieCardClicked(imdbID)
-//            }
-//        }
-//
-//        searchResultAdapter?.registerAdapterDataObserver(object :
-//            RecyclerView.AdapterDataObserver() {
-//            override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-//                (recyclerViewLayoutManager as LinearLayoutManager).scrollToPositionWithOffset(
-//                    positionStart,
-//                    0
-//                )
-//            }
-//        })
-//
-//        searchResultAdapter?.notifyDataSetChanged()
-//
-//        recyclerResultView?.adapter = searchResultAdapter
-//
-//        recyclerViewLayoutManager = recyclerResultView?.layoutManager
-//
-////        recyclerResultView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-////            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-////                super.onScrolled(recyclerView, dx, dy)
-////
-////                if (!isLoading) {
-////
-////                    if (
-////                        (recyclerViewLayoutManager as LinearLayoutManager)
-////                            .findLastCompletelyVisibleItemPosition() ==
-////                        (searchResultList?.size)?.minus(1)
-////                    ) {
-////                        searchResultPresenter.getNextSearchPage(searchTitle, nextSearchPage)
-////
-////                        nextSearchPage++
-////
-////                        isLoading = true
-////                    }
-////
-////                }
-////
-////            }
-////        })
-//
-//    }
 
 
 }

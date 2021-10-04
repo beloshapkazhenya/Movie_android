@@ -16,4 +16,5 @@ interface SearchResultView: MvpView {
     fun hideLoader()
     fun showMessage()
     fun updateSearchTitle(title: String)
+    fun addNextSearchResultPage(items: List<SearchItemResponse>)
 }

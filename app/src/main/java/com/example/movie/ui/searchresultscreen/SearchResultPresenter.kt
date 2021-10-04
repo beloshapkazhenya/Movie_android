@@ -69,11 +69,40 @@ class SearchResultPresenter : MvpPresenter<SearchResultView>() {
             })
     }
 
+    fun searchNextPage(searchValue: String) {
+        getNextPage(searchValue)
+    }
+
+    private fun getNextPage(searchValue: String) {
+        movieRepository.getMovieListByTitle(searchValue, searchPage)
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe(object : Observer<List<SearchItemResponse>> {
+                override fun onSubscribe(d: Disposable) {
+                }
+
+                override fun onNext(list: List<SearchItemResponse>) {
+                    viewState.addNextSearchResultPage(list)
+                }
+
+                override fun onError(t: Throwable) {
+                    t.printStackTrace()
+                }
+
+                override fun onComplete() {
+                    searchPage++
+                }
+
+            })
+    }
+
     fun showMovieDetails(movieDetailsLocal: MovieDetailsLocal) {
         viewState.openMovieActivity(movieDetailsLocal)
     }
 
     fun onCreate(textForSearch: String?, itemClickObservable: Observable<SearchItemResponse>?) {
+        searchPage = 1
+
         textForSearch?.let { searchMovie(it, searchPage) }
 
         viewState.updateSearchTitle(textForSearch.toString())
@@ -86,40 +115,5 @@ class SearchResultPresenter : MvpPresenter<SearchResultView>() {
             }
 
     }
-
-
-//    fun searchMovie(searchValue: String) {
-//        viewState.showLoader()
-//
-//        searchMovieOnRepository(searchValue)
-//    }
-    //    companion object{
-//        private const val START_SEARCH_PAGE: Int = 1
-//    }
-//
-//    private val movieRepository: MovieRepository by App.kodein.instance()
-
-//    private fun searchMovieOnRepository(searchValue: String) {
-//        movieRepository
-//            .getMovieListByTitle(searchValue, START_SEARCH_PAGE)
-//            ?.subscribeOn(Schedulers.io())
-//            ?.observeOn(AndroidSchedulers.mainThread())
-//            ?.subscribe(object : Observer<List<SearchItemResponse>> {
-//                override fun onError(e: Throwable) {
-//                    e.printStackTrace()
-//                }
-//
-//                override fun onSubscribe(d: Disposable) {
-//                }
-//
-//                override fun onComplete() {
-//                    viewState.hideLoader()
-//                }
-//
-//                override fun onNext(response: List<SearchItemResponse>) {
-//                    openSearchResult(response, searchValue)
-//                }
-//            })
-//    }
 
 }
