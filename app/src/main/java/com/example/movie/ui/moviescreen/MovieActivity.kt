@@ -67,7 +67,11 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
         )
         addToFavoriteButton
             ?.setOnClickListener {
-                movieDetails?.let { movieDetailsLocal -> moviePresenter.addToFavorite(movieDetailsLocal) }
+                movieDetails?.let { movieDetailsLocal ->
+                    moviePresenter.addToFavorite(
+                        movieDetailsLocal
+                    )
+                }
             }
     }
 

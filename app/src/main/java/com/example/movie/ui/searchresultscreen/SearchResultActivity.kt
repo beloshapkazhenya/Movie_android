@@ -27,14 +27,15 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
     lateinit var searchResultPresenter: SearchResultPresenter
 
     private var progressBar: FrameLayout? = null
+    private var recyclerResultView: RecyclerView? = null
+    private var searchTitleView: TextView? = null
 
     private var isLoading: Boolean = false
-    private var recyclerViewLayoutManager: RecyclerView.LayoutManager? = null
     private lateinit var searchTitle: String
 
-    private var searchTitleView: TextView? = null
+    private var recyclerViewLayoutManager: RecyclerView.LayoutManager? = null
     private var searchResultAdapter: SearchResultAdapter? = null
-    private var recyclerResultView: RecyclerView? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_8dp"
             android:background="@drawable/button_search"
-            android:contentDescription="@string/search_icon_description"/>
+            android:contentDescription="@string/search_icon_description" />
 
     </LinearLayout>
 

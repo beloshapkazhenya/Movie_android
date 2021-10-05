@@ -8,8 +8,7 @@ import moxy.MvpPresenter
 class SearchPresenter : MvpPresenter<SearchView>() {
 
     fun searchMovie(searchValue: String) {
-        viewState
-            .openSearchResultActivity(searchValue)
+        viewState.openSearchResultActivity(searchValue)
     }
 
     fun openFavorite() {

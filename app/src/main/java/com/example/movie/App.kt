@@ -43,7 +43,7 @@ class App : Application() {
 
         setRealmConfiguration()
 
-        if (::kodeinStored.isInitialized.not())
+        if (isKodeinInitialized().not())
             kodeinStored = DI {
                 import(settingModule)
             }

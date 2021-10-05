@@ -6,11 +6,11 @@ import com.example.movie.model.local.MovieDetailsLocal
 abstract class BaseListAdapter<T>(
     proposedItems: MutableList<T> = ArrayList(),
     private val colourAlternateItems: Boolean = false
-) : RecyclerView.Adapter<BaseViewHolder<in T>>() {
-    protected val items: ArrayList<T> = ArrayList(proposedItems)
+) : RecyclerView.Adapter<BaseViewHolder<T>>() {
+    private val items: ArrayList<T> = ArrayList(proposedItems)
 
 
-    override fun onBindViewHolder(holder: BaseViewHolder<in T>, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {
         val item = getItem(position)
         holder.bind(item)
 

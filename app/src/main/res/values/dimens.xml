@@ -8,4 +8,12 @@
     <dimen name="border_padding">4dp</dimen>
     <dimen name="text_margin_start">4dp</dimen>
     <dimen name="button_height">48dp</dimen>
+    <dimen name="placeholder_icon_width">96dp</dimen>
+    <dimen name="placeholder_icon_height">96dp</dimen>
+    <dimen name="placeholder_width">400dp</dimen>
+    <dimen name="placeholder_height">700dp</dimen>
+    <dimen name="icon_height">200dp</dimen>
+    <dimen name="icon_width">200dp</dimen>
+    <dimen name="icon_search_width">60dp</dimen>
+    <dimen name="icon_search_height">60dp</dimen>
 </resources>

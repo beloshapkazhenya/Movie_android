@@ -4,7 +4,6 @@ import com.example.movie.App
 import com.example.movie.model.local.MovieDetailsLocal
 import com.example.movie.repository.FavoritesStorage
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
@@ -21,7 +20,7 @@ class FavoritesPresenter : MvpPresenter<FavoritesView>() {
     }
 
     private fun updateFavoritesActivity(favoriteList: MutableList<MovieDetailsLocal>) {
-        viewState.updateFavoritesList(getFavoriteList())
+        viewState.updateFavoritesList(favoriteList)
     }
 
     private fun getFavoriteList(): MutableList<MovieDetailsLocal> {

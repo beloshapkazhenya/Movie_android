@@ -100,7 +100,10 @@ class SearchResultPresenter : MvpPresenter<SearchResultView>() {
         viewState.openMovieActivity(movieDetailsLocal)
     }
 
-    fun onCreate(textForSearch: String?, itemClickObservable: Observable<SearchItemResponse>?) {
+    fun onCreate(
+        textForSearch: String?,
+        itemClickObservable: Observable<SearchItemResponse>?
+    ) {
         searchPage = 1
 
         textForSearch?.let { searchMovie(it, searchPage) }

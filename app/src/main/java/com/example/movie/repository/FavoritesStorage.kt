@@ -28,17 +28,6 @@ class FavoritesStorage {
 
     }
 
-    fun getMovie(id: String): MovieDetailsLocal? {
-        Realm.getDefaultInstance().use { realm ->
-            val movieDetails = realm
-                .where(MovieDetailsLocal::class.java)
-                .equalTo(FIELD_NAME, id)
-                .findFirst()
-
-            return realm.copyFromRealm(movieDetails)
-        }
-    }
-
     fun checkMovieInFavoriteList(id: String): Boolean {
 
         return Realm.getDefaultInstance()

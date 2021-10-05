@@ -35,11 +35,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/vRvSearchResultList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:overScrollMode="never"
-                android:splitMotionEvents="false"
+                style="@style/recyclerview"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/movie_card" />
 

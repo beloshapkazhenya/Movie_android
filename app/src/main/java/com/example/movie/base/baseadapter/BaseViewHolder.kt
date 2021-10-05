@@ -10,9 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.movie.R
 import kotlinx.android.extensions.LayoutContainer
 
-/**
- * Base class for all view holders to be used in concrete implementations of [BaseListAdapter]
- */
 abstract class BaseViewHolder<in T>(view: View) : RecyclerView.ViewHolder(view), LayoutContainer {
 
     abstract fun bind(model: T)

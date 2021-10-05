@@ -11,4 +11,7 @@
     <color name="main">#0505FF</color>
     <color name="main_lighten">#99C7C7F8</color>
     <color name="secondary">#A8000093</color>
+    <color name="red">#CD0000</color>
+    <color name="red_dark">#A8A30000</color>
+    <color name="icon_background">#7173FF</color>
 </resources>
