@@ -10,7 +10,7 @@ import io.reactivex.subjects.PublishSubject
 
 
 class SearchResultAdapter(
-    private val searchResult: MutableList<SearchItemResponse>
+    searchResult: MutableList<SearchItemResponse>
 ) : BaseListAdapter<SearchItemResponse>(searchResult) {
 
     private val itemClickSubject = PublishSubject.create<SearchItemResponse>()

@@ -29,7 +29,6 @@ class FavoritesActivity : MvpAppCompatActivity(), FavoritesView {
         favoritesPresenter.onCreate(
             favoritesAdapter?.itemClickObservable
         )
-
     }
 
     private fun initFavoritesRv() {
@@ -42,10 +41,10 @@ class FavoritesActivity : MvpAppCompatActivity(), FavoritesView {
     }
 
     override fun openMovieActivity(movieDetailsLocal: MovieDetailsLocal) {
-        val intent = Intent(this, MovieActivity::class.java)
-
-        intent.putExtra(MovieActivity.MOVIE_DETAILS, movieDetailsLocal)
-
-        startActivity(intent)
+        startActivity(
+            Intent(this, MovieActivity::class.java).apply {
+                putExtra(MovieActivity.MOVIE_DETAILS, movieDetailsLocal)
+            }
+        )
     }
 }

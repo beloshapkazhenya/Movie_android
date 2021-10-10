@@ -6,6 +6,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.movie.R
 import com.example.movie.base.baseadapter.BaseViewHolder
+import com.example.movie.base.safeonclicklistener.setSafeOnClickListener
 import com.example.movie.model.response.moviesearch.SearchItemResponse
 import io.reactivex.subjects.PublishSubject
 
@@ -18,17 +19,14 @@ class SearchResultViewHolder(
     override fun bind(model: SearchItemResponse) {
 
         bindPoster(model.poster.toString())
-
         bindTitle(model.title)
-
         bindOnClickListener(model)
-
     }
 
     private fun bindOnClickListener(model: SearchItemResponse) {
         itemView
             .findViewById<LinearLayout>(R.id.vLnLtMovieCard)
-            .setOnClickListener {
+            .setSafeOnClickListener {
                 itemClickSubject.onNext(model)
             }
     }

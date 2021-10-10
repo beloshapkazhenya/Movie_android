@@ -5,6 +5,7 @@ import com.example.movie.model.local.MovieDetailsLocal
 import com.example.movie.repository.FavoritesStorage
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import moxy.InjectViewState
 import moxy.MvpPresenter
@@ -14,6 +15,8 @@ import org.kodein.di.instance
 class FavoritesPresenter : MvpPresenter<FavoritesView>() {
 
     private val favoritesStorage: FavoritesStorage by App.kodein.instance()
+
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     private fun openMovieDetails(movieDetails: MovieDetailsLocal) {
         viewState.openMovieActivity(movieDetails)
@@ -35,7 +38,14 @@ class FavoritesPresenter : MvpPresenter<FavoritesView>() {
             ?.subscribeOn(Schedulers.io())
             ?.subscribe {
                 openMovieDetails(it)
+            }?.let {
+                compositeDisposable.add(it)
             }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        compositeDisposable.dispose()
     }
 
 }

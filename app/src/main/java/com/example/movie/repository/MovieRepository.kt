@@ -6,7 +6,6 @@ import com.example.movie.service.api.Omdb.omdbServices
 import io.reactivex.Observable
 
 class MovieRepository {
-
     companion object {
         private const val API_KEY: String = "ea6e1810"
         const val PLOT_TYPE: String = "full"
@@ -17,7 +16,7 @@ class MovieRepository {
         return omdbServices
             ?.getMoviesByTitle(API_KEY, searchValue, page)
             ?.map { searchResponse ->
-                searchResponse.search.map { search ->
+                searchResponse.search?.map { search ->
                     SearchItemResponse(
                         search.poster,
                         search.title,
@@ -48,7 +47,5 @@ class MovieRepository {
                     movie.imdbID
                 )
             } ?: Observable.fromCallable { MovieDetailsLocal() }
-
     }
-
 }

@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.movie.R
+import com.example.movie.base.safeonclicklistener.setSafeOnClickListener
 import com.example.movie.model.local.MovieDetailsLocal
 import com.example.movie.ui.favoritesscreen.FavoritesActivity
 import moxy.MvpAppCompatActivity
@@ -15,7 +16,7 @@ import moxy.presenter.InjectPresenter
 class MovieActivity : MvpAppCompatActivity(), MovieView {
 
     companion object {
-        const val MOVIE_DETAILS = "movie_details"
+        const val MOVIE_DETAILS = "MOVIE_DETAILS"
     }
 
     @InjectPresenter
@@ -33,18 +34,23 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
 
         getMovieDetails()
 
-        movieDetails?.let { moviePresenter.updateMovieDetails(it) }
+        movieDetails?.let {
+            moviePresenter.updateMovieDetails(it)
+            moviePresenter.checkMovieInFavoriteList(it)
+        }
 
-        movieDetails?.let { moviePresenter.checkMovieInFavoriteList(it) }
+        addFavoritesOnClickListener()
+    }
 
-        findViewById<Button>(R.id.btnMovieFavorite)
-            .setOnClickListener {
-                openFavorite()
-            }
+    private fun addFavoritesOnClickListener() {
+        findViewById<Button>(R.id.btnMovieFavorite).setSafeOnClickListener {
+            openFavorite()
+        }
     }
 
     override fun actionMovieIsInFavoriteList() {
         addToFavoriteButton?.text = getString(R.string.delete_from_favorite)
+
         addToFavoriteButton?.setBackgroundDrawable(
             ContextCompat.getDrawable(
                 this,
@@ -52,21 +58,23 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
             )
         )
 
-        addToFavoriteButton?.setOnClickListener {
+        addToFavoriteButton?.setSafeOnClickListener {
             moviePresenter.deleteFromFavorite(movieDetails?.id)
         }
     }
 
     override fun actionMovieIsNotInFavoriteList() {
         addToFavoriteButton?.text = getString(R.string.add_to_favorite)
+
         addToFavoriteButton?.setBackgroundDrawable(
             ContextCompat.getDrawable(
                 this,
                 R.drawable.button
             )
         )
+
         addToFavoriteButton
-            ?.setOnClickListener {
+            ?.setSafeOnClickListener {
                 movieDetails?.let { movieDetailsLocal ->
                     moviePresenter.addToFavorite(
                         movieDetailsLocal
@@ -79,52 +87,65 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
         movieDetails = intent.getParcelableExtra(MOVIE_DETAILS)
     }
 
-    override fun updatePlot(plot: String) {
+    override fun updateUI(movieDetailsLocal: MovieDetailsLocal) {
+        updateTitle(movieDetailsLocal.title.toString())
+        updateMoviePoster(movieDetailsLocal.poster.toString())
+        updateReleased(movieDetailsLocal.released.toString())
+        updateRuntime(movieDetailsLocal.runtime.toString())
+        updateGenre(movieDetailsLocal.genre.toString())
+        updateDirector(movieDetailsLocal.director.toString())
+        updateWriter(movieDetailsLocal.writer.toString())
+        updateCountry(movieDetailsLocal.country.toString())
+        updateActors(movieDetailsLocal.actors.toString())
+        updatePlot(movieDetailsLocal.plot.toString())
+    }
+
+    private fun updatePlot(plot: String) {
         findViewById<TextView>(R.id.vTvMoviePlot)
             .text = plot
     }
 
-    override fun updateActors(actors: String) {
+    private fun updateActors(actors: String) {
         findViewById<TextView>(R.id.vTvMovieActors)
-            .text = actors
+            .text = String.format(getString(R.string.actors), actors)
     }
 
-    override fun updateCountry(country: String) {
+    private fun updateCountry(country: String) {
         findViewById<TextView>(R.id.vTvMovieCountry)
-            .text = country
+            .text = String.format(getString(R.string.country), country)
     }
 
-    override fun updateWriter(writer: String) {
+    private fun updateWriter(writer: String) {
         findViewById<TextView>(R.id.vTvMovieWriter)
-            .text = writer
+            .text = String.format(getString(R.string.writer), writer)
     }
 
-    override fun updateDirector(director: String) {
+    private fun updateDirector(director: String) {
         findViewById<TextView>(R.id.vTvMovieDirector)
-            .text = director
+            .text = String.format(getString(R.string.director), director)
     }
 
-    override fun updateGenre(genre: String) {
+    private fun updateGenre(genre: String) {
         findViewById<TextView>(R.id.vTvMovieGenre)
-            .text = genre
+            .text = String.format(getString(R.string.genre), genre)
     }
 
-    override fun updateRuntime(runtime: String) {
+    private fun updateRuntime(runtime: String) {
         findViewById<TextView>(R.id.vTvMovieRuntime)
-            .text = runtime
+            .text = String.format(getString(R.string.runtime), runtime)
     }
 
-    override fun updateReleased(released: String) {
+    private fun updateReleased(released: String) {
         findViewById<TextView>(R.id.vTvMovieReleased)
-            .text = released
+            .text = String.format(getString(R.string.released), released)
     }
 
-    override fun updateTitle(title: String) {
+    private fun updateTitle(title: String) {
         findViewById<TextView>(R.id.vTvMovieTitle)
             .text = title
     }
 
-    override fun updateMoviePoster(poster: String) {
+    private fun updateMoviePoster(poster: String) {
         Glide
             .with(this)
             .load(poster)
@@ -134,9 +155,9 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
     }
 
     override fun openFavorite() {
-        val intent = Intent(this, FavoritesActivity::class.java)
-
-        startActivity(intent)
+        startActivity(
+            Intent(this, FavoritesActivity::class.java)
+        )
     }
 
 }

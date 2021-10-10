@@ -16,14 +16,12 @@ class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val intent = Intent(this, SearchActivity::class.java)
-
         Timer().schedule(DELAY) {
-            startActivity(intent)
+            startActivity(
+                Intent(applicationContext, SearchActivity::class.java)
+            )
             finish()
         }
 
     }
-
-
 }

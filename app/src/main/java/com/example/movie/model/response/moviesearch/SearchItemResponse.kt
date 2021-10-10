@@ -2,7 +2,6 @@ package com.example.movie.model.response.moviesearch
 
 import com.google.gson.annotations.SerializedName
 
-
 data class SearchItemResponse(
     @SerializedName("Poster") val poster: String?,
     @SerializedName("Title") val title: String?,

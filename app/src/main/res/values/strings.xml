@@ -1,28 +1,36 @@
 <resources>
     <string name="app_name">Movie</string>
+    <string name="favorite">Favorite</string>
+
+    <!--    Search Activity-->
     <string name="search_icon_description">Search icon</string>
     <string name="edit_text_hint">Movie title</string>
-    <string name="movie_poster_description">movie poster</string>
-    <string name="tools_movie_title">Star Wars: Episode V - The Empire Strikes Back</string>
-    <string name="favorites">Favorites</string>
+
+    <!--    Search Result Activity-->
     <string name="search_results_title">Search results for:</string>
-    <string name="released">Released:</string>
-    <string name="runtime">Runtime:</string>
-    <string name="tools_runtime">124 min</string>
-    <string name="tools_released">20 Jun 1980</string>
-    <string name="genre">Genre:</string>
-    <string name="tools_genre">Action, Adventure, Fantasy</string>
-    <string name="director">Director:</string>
-    <string name="tools_director">Irvin Kershner</string>
-    <string name="writer">Writer:</string>
-    <string name="tools_writer">Leigh Brackett, Lawrence Kasdan, George Lucas</string>
-    <string name="country">Country:</string>
-    <string name="tools_country">United States, United Kingdom</string>
-    <string name="tool_movie_plot">Luke Skywalker, Han Solo, Princess Leia and Chewbacca face attack by the Imperial forces and its AT-AT walkers on the ice planet Hoth. While Han and Leia escape in the Millennium Falcon, Luke travels to Dagobah in search of Yoda. Only with the Jedi Master\'s help will Luke survive when the Dark Side of the Force beckons him into the ultimate duel with Darth Vader.</string>
+    <string name="text_error">Something went wrong</string>
+
+    <!--    Movie Activity-->
+    <string name="released">Released: %s</string>
+    <string name="runtime">Runtime: %s</string>
+    <string name="genre">Genre: %s</string>
+    <string name="director">Director: %s</string>
+    <string name="writer">Writer: %s</string>
+    <string name="country">Country: %s</string>
+    <string name="actors">Actors: %s</string>
     <string name="add_to_favorite">Add to favorite</string>
     <string name="delete_from_favorite">Delete from favorite</string>
-    <string name="actors">Actors:</string>
+    <string name="movie_poster_description">movie poster</string>
+    <string name="tools_movie_title">Star Wars: Episode V - The Empire Strikes Back</string>
+    <string name="tools_runtime">124 min</string>
+    <string name="tools_released">20 Jun 1980</string>
+    <string name="tools_genre">Action, Adventure, Fantasy</string>
+    <string name="tools_director">Irvin Kershner</string>
+    <string name="tools_writer">Leigh Brackett, Lawrence Kasdan, George Lucas</string>
+    <string name="tools_country">United States, United Kingdom</string>
+    <string name="tool_movie_plot">Luke Skywalker, Han Solo, Princess Leia and Chewbacca face attack by the Imperial forces and its AT-AT walkers on the ice planet Hoth. While Han and Leia escape in the Millennium Falcon, Luke travels to Dagobah in search of Yoda. Only with the Jedi Master\'s help will Luke survive when the Dark Side of the Force beckons him into the ultimate duel with Darth Vader.</string>
     <string name="tools_actors">Mark Hamill, Harrison Ford, Carrie Fisher</string>
-    <string name="favorite">Favorite</string>
-    <string name="text_error">Something went wrong</string>
+
+    <!--    Favorites Activity-->
+    <string name="favorites">Favorites</string>
 </resources>

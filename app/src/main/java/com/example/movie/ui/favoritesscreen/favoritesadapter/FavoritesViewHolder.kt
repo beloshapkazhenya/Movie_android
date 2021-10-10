@@ -6,6 +6,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.example.movie.R
 import com.example.movie.base.baseadapter.BaseViewHolder
+import com.example.movie.base.safeonclicklistener.setSafeOnClickListener
 import com.example.movie.model.local.MovieDetailsLocal
 import io.reactivex.subjects.PublishSubject
 
@@ -24,7 +25,7 @@ class FavoritesViewHolder(
     private fun bindOnClickListener(model: MovieDetailsLocal) {
         itemView
             .findViewById<LinearLayout>(R.id.vLnLtMovieCard)
-            .setOnClickListener {
+            .setSafeOnClickListener {
                 itemClickSubject.onNext(model)
             }
     }

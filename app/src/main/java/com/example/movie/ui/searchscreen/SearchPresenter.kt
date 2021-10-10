@@ -14,5 +14,4 @@ class SearchPresenter : MvpPresenter<SearchView>() {
     fun openFavorite() {
         viewState.openFavorite()
     }
-
 }

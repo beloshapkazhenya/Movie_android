@@ -43,11 +43,7 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
 
         findAllView()
         setSearchTitle()
-
-        findViewById<Button>(R.id.btnSearchResultFavorite)
-            .setOnClickListener {
-                openFavorite()
-            }
+        addFavoriteButtonOnClickListener()
 
         initSearchResultRv()
 
@@ -60,6 +56,13 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
 
     override fun updateSearchTitle(title: String) {
         searchTitleView?.text = title
+    }
+
+    private fun addFavoriteButtonOnClickListener(){
+        findViewById<Button>(R.id.btnSearchResultFavorite)
+            .setOnClickListener {
+                openFavorite()
+            }
     }
 
     private fun getTextForSearch(): String? {
@@ -77,9 +80,9 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
     }
 
     override fun openFavorite() {
-        val intent = Intent(this, FavoritesActivity::class.java)
-
-        startActivity(intent)
+        startActivity(
+            Intent(this, FavoritesActivity::class.java)
+        )
     }
 
     private fun findAllView() {
@@ -89,11 +92,11 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
     }
 
     override fun openMovieActivity(movieDetailsLocal: MovieDetailsLocal) {
-        val intent = Intent(this, MovieActivity::class.java)
-
-        intent.putExtra(MovieActivity.MOVIE_DETAILS, movieDetailsLocal)
-
-        startActivity(intent)
+        startActivity(
+            Intent(this, MovieActivity::class.java).apply {
+                putExtra(MovieActivity.MOVIE_DETAILS, movieDetailsLocal)
+            }
+        )
     }
 
     override fun updateSearchResultList(items: List<SearchItemResponse>) {
@@ -142,9 +145,11 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
                 if (!isLoading) {
 
                     if (
-                        (recyclerViewLayoutManager as LinearLayoutManager)
-                            .findLastCompletelyVisibleItemPosition() ==
-                        searchResultAdapter?.itemCount?.minus(1)
+                        (recyclerViewLayoutManager as? LinearLayoutManager)
+                            ?.findLastCompletelyVisibleItemPosition() ==
+                        searchResultAdapter?.itemCount?.minus(1) && searchResultAdapter?.itemCount?.minus(
+                            1
+                        ) != null
                     ) {
                         searchResultPresenter.searchNextPage(searchTitle)
 

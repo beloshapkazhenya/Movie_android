@@ -30,172 +30,61 @@
                 android:contentDescription="@string/movie_poster_description"
                 tools:src="@drawable/movie_poster_placeholder" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/vTvMovieReleased"
+                style="@style/movie_text"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:text="@string/released" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_8dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/movie_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/released" />
-
-                    <TextView
-                        android:id="@+id/vTvMovieReleased"
-                        style="@style/movie_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/text_margin_start"
-                        tools:text="@string/tools_released" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_8dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/movie_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/runtime" />
-
-                    <TextView
-                        android:id="@+id/vTvMovieRuntime"
-                        style="@style/movie_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/text_margin_start"
-                        tools:text="@string/tools_runtime" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_8dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/movie_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/genre" />
-
-                    <TextView
-                        android:id="@+id/vTvMovieGenre"
-                        style="@style/movie_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/text_margin_start"
-                        tools:text="@string/tools_genre" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_8dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/movie_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/director" />
-
-                    <TextView
-                        android:id="@+id/vTvMovieDirector"
-                        style="@style/movie_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/text_margin_start"
-                        tools:text="@string/tools_director" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_8dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/movie_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/writer" />
-
-                    <TextView
-                        android:id="@+id/vTvMovieWriter"
-                        style="@style/movie_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/text_margin_start"
-                        tools:text="@string/tools_writer" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_8dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/movie_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/country" />
-
-                    <TextView
-                        android:id="@+id/vTvMovieCountry"
-                        style="@style/movie_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/text_margin_start"
-                        tools:text="@string/tools_country" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/vTvMovieRuntime"
+                style="@style/movie_text"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_8dp"
-                android:orientation="horizontal">
+                android:text="@string/runtime" />
 
-                <TextView
-                    style="@style/movie_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/actors" />
+            <TextView
+                android:id="@+id/vTvMovieGenre"
+                style="@style/movie_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/genre" />
 
-                <TextView
-                    android:id="@+id/vTvMovieActors"
-                    style="@style/movie_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:text="@string/tools_actors" />
+            <TextView
+                android:id="@+id/vTvMovieDirector"
+                style="@style/movie_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/director" />
 
-            </LinearLayout>
+            <TextView
+                android:id="@+id/vTvMovieWriter"
+                style="@style/movie_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/writer" />
+
+            <TextView
+                android:id="@+id/vTvMovieCountry"
+                style="@style/movie_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/country" />
+
+
+            <TextView
+                android:id="@+id/vTvMovieActors"
+                style="@style/movie_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/actors" />
 
             <TextView
                 android:id="@+id/vTvMoviePlot"
                 style="@style/movie_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_8dp"
                 tools:text="@string/tool_movie_plot" />
 
         </LinearLayout>

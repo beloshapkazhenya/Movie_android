@@ -13,29 +13,16 @@ class MoviePresenter : MvpPresenter<MovieView>() {
     private val favoritesStorage: FavoritesStorage by App.kodein.instance()
 
     fun updateMovieDetails(movieDetails: MovieDetailsLocal) {
-
-        viewState.run {
-            updateTitle(movieDetails.title.toString())
-            updateMoviePoster(movieDetails.poster.toString())
-            updateReleased(movieDetails.released.toString())
-            updateRuntime(movieDetails.runtime.toString())
-            updateGenre(movieDetails.genre.toString())
-            updateDirector(movieDetails.director.toString())
-            updateWriter(movieDetails.writer.toString())
-            updateCountry(movieDetails.country.toString())
-            updateActors(movieDetails.actors.toString())
-            updatePlot(movieDetails.plot.toString())
-        }
-
+        viewState.updateUI(movieDetails)
     }
 
     private fun checkMovieInFavoriteList(isInFavorite: Boolean) {
 
-        when (isInFavorite) {
-            true -> viewState.actionMovieIsNotInFavoriteList()
-            false -> viewState.actionMovieIsInFavoriteList()
+        if (isInFavorite) {
+            viewState.actionMovieIsNotInFavoriteList()
+        } else {
+            viewState.actionMovieIsInFavoriteList()
         }
-
     }
 
     fun checkMovieInFavoriteList(movieDetails: MovieDetailsLocal) {
@@ -45,17 +32,20 @@ class MoviePresenter : MvpPresenter<MovieView>() {
                     movieDetails.id.toString()
                 )
         )
-
     }
 
     fun deleteFromFavorite(movieDetails: String?) {
-        movieDetails?.let { favoritesStorage.deleteFromFavoriteList(it) }
-        viewState.actionMovieIsNotInFavoriteList()
+        movieDetails?.let {
+            favoritesStorage.deleteFromFavoriteList(it)
+            viewState.actionMovieIsNotInFavoriteList()
+        }
     }
 
     fun addToFavorite(movieDetails: MovieDetailsLocal) {
-        movieDetails.let { favoritesStorage.saveMovieToFavorite(it) }
-        viewState.actionMovieIsInFavoriteList()
+        movieDetails.let {
+            favoritesStorage.saveMovieToFavorite(it)
+            viewState.actionMovieIsInFavoriteList()
+        }
     }
 
 }

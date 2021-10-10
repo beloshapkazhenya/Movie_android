@@ -9,7 +9,7 @@ import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 class FavoritesAdapter(
-    private val favoriteList: MutableList<MovieDetailsLocal>
+    favoriteList: MutableList<MovieDetailsLocal>
 ) : BaseListAdapter<MovieDetailsLocal>(favoriteList) {
 
     private val itemClickSubject = PublishSubject.create<MovieDetailsLocal>()

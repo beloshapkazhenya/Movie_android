@@ -35,7 +35,6 @@ class FavoritesStorage {
             .equalTo(FIELD_NAME, id)
             .findAll()
             .isEmpty()
-
     }
 
     fun deleteFromFavoriteList(id: String) {
@@ -48,12 +47,12 @@ class FavoritesStorage {
                 ?.deleteFromRealm()
         }
     }
+}
 
-    private fun Realm.execute(block: (realm: Realm) -> Unit) {
-        this.use {
-            it.executeTransaction { realm ->
-                block(realm)
-            }
+fun Realm.execute(block: (realm: Realm) -> Unit) {
+    this.use {
+        it.executeTransaction { realm ->
+            block(realm)
         }
     }
 }
