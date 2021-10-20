@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.moviescreen.MovieActivity">
+
+    <TextView
+        android:id="@+id/vTvMovieTitle"
+        style="@style/title_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="@string/tools_movie_title" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/vImgVwMoviePoster"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/movie_poster_description"
+                tools:src="@drawable/movie_poster_placeholder" />
+
+            <TextView
+                android:id="@+id/vTvMovieReleased"
+                style="@style/movie_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/released" />
+
+            <TextView
+                android:id="@+id/vTvMovieRuntime"
+                style="@style/movie_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/runtime" />
+
+            <TextView
+                android:id="@+id/vTvMovieGenre"
+                style="@style/movie_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/genre" />
+
+            <TextView
+                android:id="@+id/vTvMovieDirector"
+                style="@style/movie_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/director" />
+
+            <TextView
+                android:id="@+id/vTvMovieWriter"
+                style="@style/movie_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/writer" />
+
+            <TextView
+                android:id="@+id/vTvMovieCountry"
+                style="@style/movie_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/country" />
+
+            <TextView
+                android:id="@+id/vTvMovieActors"
+                style="@style/movie_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/actors" />
+
+            <TextView
+                android:id="@+id/vTvMoviePlot"
+                style="@style/movie_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="@string/tool_movie_plot" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btnAddToFavorite"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/button_height"
+            android:layout_weight="1"
+            android:background="@drawable/button"
+            android:gravity="center"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            tools:text="@string/add_to_favorite" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/design_default_color_background" />
+
+        <Button
+            android:id="@+id/btnMovieFavorite"
+            style="@style/button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="@string/favorite" />
+
+    </LinearLayout>
+
+</LinearLayout>
