@@ -9,23 +9,21 @@ class FavoritesStorage {
     }
 
     fun saveMovieToFavorite(movieDetailsLocal: MovieDetailsLocal) {
-
         Realm.getDefaultInstance().execute {
             it.insertOrUpdate(movieDetailsLocal)
         }
-
     }
 
     fun getFavoritesList(): MutableList<MovieDetailsLocal> {
         Realm.getDefaultInstance().use { realm ->
-            val favoriteList = realm
-                .where(MovieDetailsLocal::class.java)
-                .findAll()
-                .toMutableList()
 
-            return realm.copyFromRealm(favoriteList)
+            return realm.copyFromRealm(
+                realm
+                    .where(MovieDetailsLocal::class.java)
+                    .findAll()
+                    .toMutableList()
+            )
         }
-
     }
 
     fun checkMovieInFavoriteList(id: String): Boolean {
@@ -38,7 +36,6 @@ class FavoritesStorage {
     }
 
     fun deleteFromFavoriteList(id: String) {
-
         Realm.getDefaultInstance().execute {
             it
                 .where(MovieDetailsLocal::class.java)

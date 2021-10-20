@@ -15,5 +15,4 @@ abstract class BaseViewHolder<in T>(view: View) : RecyclerView.ViewHolder(view),
 
     val context: Context
         get() = itemView.context
-
 }

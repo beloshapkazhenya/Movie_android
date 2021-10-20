@@ -27,7 +27,5 @@ class SearchResultAdapter(
                 .inflate(R.layout.movie_card, parent, false)
 
         return SearchResultViewHolder(itemView, itemClickSubject)
-
     }
-
 }

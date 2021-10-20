@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movie.R
+import com.example.movie.base.safeonclicklistener.setSafeOnClickListener
 import com.example.movie.model.local.MovieDetailsLocal
 import com.example.movie.model.response.moviesearch.SearchItemResponse
 import com.example.movie.ui.favoritesscreen.FavoritesActivity
@@ -51,16 +52,15 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
             getTextForSearch(),
             searchResultAdapter?.itemClickObservable
         )
-
     }
 
     override fun updateSearchTitle(title: String) {
         searchTitleView?.text = title
     }
 
-    private fun addFavoriteButtonOnClickListener(){
+    private fun addFavoriteButtonOnClickListener() {
         findViewById<Button>(R.id.btnSearchResultFavorite)
-            .setOnClickListener {
+            .setSafeOnClickListener {
                 openFavorite()
             }
     }
@@ -155,13 +155,8 @@ class SearchResultActivity : MvpAppCompatActivity(), SearchResultView {
 
                         isLoading = true
                     }
-
                 }
-
             }
         })
-
     }
-
-
 }

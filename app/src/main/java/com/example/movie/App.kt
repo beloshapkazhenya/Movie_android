@@ -47,7 +47,5 @@ class App : Application() {
             kodeinStored = DI {
                 import(settingModule)
             }
-
     }
-
 }

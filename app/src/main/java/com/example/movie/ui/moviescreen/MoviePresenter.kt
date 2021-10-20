@@ -47,5 +47,4 @@ class MoviePresenter : MvpPresenter<MovieView>() {
             viewState.actionMovieIsInFavoriteList()
         }
     }
-
 }

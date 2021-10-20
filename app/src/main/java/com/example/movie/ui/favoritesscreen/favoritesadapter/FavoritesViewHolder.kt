@@ -15,7 +15,6 @@ class FavoritesViewHolder(
     private val itemClickSubject: PublishSubject<MovieDetailsLocal>
 ) : BaseViewHolder<MovieDetailsLocal>(view) {
 
-
     override fun bind(model: MovieDetailsLocal) {
         bindPoster(model.poster.toString())
         bindTitle(model.title.toString())
@@ -48,5 +47,4 @@ class FavoritesViewHolder(
                     .findViewById(R.id.vImgVwMovieCardPoster)
             )
     }
-
 }

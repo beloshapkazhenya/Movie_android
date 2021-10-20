@@ -27,6 +27,7 @@ class FavoritesPresenter : MvpPresenter<FavoritesView>() {
     }
 
     private fun getFavoriteList(): MutableList<MovieDetailsLocal> {
+
         return favoritesStorage.getFavoritesList()
     }
 
@@ -47,5 +48,4 @@ class FavoritesPresenter : MvpPresenter<FavoritesView>() {
         super.onDestroy()
         compositeDisposable.dispose()
     }
-
 }

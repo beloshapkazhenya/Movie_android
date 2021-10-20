@@ -14,6 +14,5 @@ fun View.setSafeOnClickListener(debounceTime: Long = 600, action: () -> Unit) {
                 lastClickTime = SystemClock.elapsedRealtime()
             }
         }
-
     })
 }

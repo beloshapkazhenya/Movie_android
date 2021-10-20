@@ -27,5 +27,4 @@ class FavoritesAdapter(
 
         return FavoritesViewHolder(itemView, itemClickSubject)
     }
-
 }

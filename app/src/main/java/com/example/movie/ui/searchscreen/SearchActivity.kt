@@ -31,15 +31,17 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
     }
 
     private fun addSearchButtonOnClickListener() {
-        findViewById<ImageButton>(R.id.imgBtnSearch).setSafeOnClickListener {
-            searchPresenter.searchMovie(getSearchValue())
-        }
+        findViewById<ImageButton>(R.id.imgBtnSearch)
+            .setSafeOnClickListener {
+                searchPresenter.searchMovie(getSearchValue())
+            }
     }
 
     private fun addFavoritesButtonOnClickListener() {
-        findViewById<Button>(R.id.btnSearchFavorite).setSafeOnClickListener {
-            searchPresenter.openFavorite()
-        }
+        findViewById<Button>(R.id.btnSearchFavorite)
+            .setSafeOnClickListener {
+                searchPresenter.openFavorite()
+            }
     }
 
     private fun getSearchValue(): String {
@@ -60,5 +62,4 @@ class SearchActivity : MvpAppCompatActivity(), SearchView {
             Intent(this, FavoritesActivity::class.java)
         )
     }
-
 }

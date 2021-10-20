@@ -72,7 +72,6 @@
                 android:layout_height="wrap_content"
                 android:text="@string/country" />
 
-
             <TextView
                 android:id="@+id/vTvMovieActors"
                 style="@style/movie_text"

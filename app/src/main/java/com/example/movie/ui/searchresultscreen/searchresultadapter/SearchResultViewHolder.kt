@@ -48,5 +48,4 @@ class SearchResultViewHolder(
                     .findViewById(R.id.vImgVwMovieCardPoster)
             )
     }
-
 }

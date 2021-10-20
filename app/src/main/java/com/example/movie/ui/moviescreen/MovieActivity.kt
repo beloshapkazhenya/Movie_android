@@ -49,38 +49,42 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
     }
 
     override fun actionMovieIsInFavoriteList() {
-        addToFavoriteButton?.text = getString(R.string.delete_from_favorite)
 
-        addToFavoriteButton?.setBackgroundDrawable(
-            ContextCompat.getDrawable(
-                this,
-                R.drawable.button_red
+        addToFavoriteButton?.apply {
+            text = getString(R.string.delete_from_favorite)
+
+            setBackgroundDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    R.drawable.button_red
+                )
             )
-        )
 
-        addToFavoriteButton?.setSafeOnClickListener {
-            moviePresenter.deleteFromFavorite(movieDetails?.id)
+            setSafeOnClickListener {
+                moviePresenter.deleteFromFavorite(movieDetails?.id)
+            }
         }
     }
 
     override fun actionMovieIsNotInFavoriteList() {
-        addToFavoriteButton?.text = getString(R.string.add_to_favorite)
+        addToFavoriteButton?.apply {
+            text = getString(R.string.add_to_favorite)
 
-        addToFavoriteButton?.setBackgroundDrawable(
-            ContextCompat.getDrawable(
-                this,
-                R.drawable.button
+            setBackgroundDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    R.drawable.button
+                )
             )
-        )
 
-        addToFavoriteButton
-            ?.setSafeOnClickListener {
+            setSafeOnClickListener {
                 movieDetails?.let { movieDetailsLocal ->
                     moviePresenter.addToFavorite(
                         movieDetailsLocal
                     )
                 }
             }
+        }
     }
 
     private fun getMovieDetails() {
@@ -159,5 +163,4 @@ class MovieActivity : MvpAppCompatActivity(), MovieView {
             Intent(this, FavoritesActivity::class.java)
         )
     }
-
 }

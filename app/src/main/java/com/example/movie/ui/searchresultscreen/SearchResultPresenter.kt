@@ -22,29 +22,17 @@ class SearchResultPresenter : MvpPresenter<SearchResultView>() {
     private var searchPage: Int = 1
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    //добавить реализацию без onSubscribe и onComplete (extension or abstract class)
     private fun getMovieDetails(imdbID: String) {
         movieRepository.getMovieById(imdbID)
             .subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe(object : Observer<MovieDetailsLocal> {
-
-                override fun onNext(movieDetailsLocal: MovieDetailsLocal) {
-                    showMovieDetails(movieDetailsLocal)
-                }
-
-                override fun onError(t: Throwable) {
-                    t.printStackTrace()
-                    viewState.showMessage()
-                }
-
-                override fun onSubscribe(d: Disposable) {
-                }
-
-                override fun onComplete() {
-                }
-
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                showMovieDetails(it)
+            }, { throwable ->
+                throwable.printStackTrace()
+                viewState.showMessage()
             })
+            .let { compositeDisposable.add(it) }
     }
 
     private fun searchMovie(searchValue: String, page: Int) {
@@ -69,7 +57,6 @@ class SearchResultPresenter : MvpPresenter<SearchResultView>() {
                 override fun onNext(list: List<SearchItemResponse>) {
                     viewState.updateSearchResultList(list)
                 }
-
             })
     }
 
@@ -81,26 +68,14 @@ class SearchResultPresenter : MvpPresenter<SearchResultView>() {
         movieRepository.getMovieListByTitle(searchValue, searchPage)
             ?.subscribeOn(Schedulers.io())
             ?.observeOn(AndroidSchedulers.mainThread())
-            ?.subscribe(object : Observer<List<SearchItemResponse>> {
-                override fun onSubscribe(d: Disposable) {
-                }
-
-                override fun onNext(list: List<SearchItemResponse>) {
-                    viewState.addNextSearchResultPage(list)
-                }
-
-                override fun onError(t: Throwable) {
-                    t.printStackTrace()
-                }
-
-                override fun onComplete() {
-                    searchPage++
-                }
-
-            })
+            ?.subscribe(
+                { searchResult -> viewState.addNextSearchResultPage(searchResult) },
+                { throwable -> throwable.printStackTrace() },
+                { searchPage++ }
+            )?.let { compositeDisposable.add(it) }
     }
 
-    fun showMovieDetails(movieDetailsLocal: MovieDetailsLocal) {
+    private fun showMovieDetails(movieDetailsLocal: MovieDetailsLocal) {
         viewState.openMovieActivity(movieDetailsLocal)
     }
 

@@ -7,11 +7,9 @@ abstract class BaseListAdapter<T>(
 ) : RecyclerView.Adapter<BaseViewHolder<T>>() {
     private val items: ArrayList<T> = ArrayList(proposedItems)
 
-
     override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {
         val item = getItem(position)
         holder.bind(item)
-
     }
 
     override fun getItemCount(): Int = items.size
@@ -24,16 +22,19 @@ abstract class BaseListAdapter<T>(
     private fun removeItem(position: Int): T {
         val item = items.removeAt(position)
         notifyItemRemoved(position)
+
         return item
     }
 
     private fun moveItem(fromPosition: Int, toPosition: Int) {
         val item = items.removeAt(fromPosition)
+
         if (toPosition >= items.size) {
             items.add(item)
         } else {
             items.add(toPosition, item)
         }
+
         notifyItemMoved(fromPosition, toPosition)
     }
 
